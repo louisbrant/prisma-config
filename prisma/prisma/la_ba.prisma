@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/la_ba"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:Alibaba@1408@localhost:3306/la_ba"
+}
+
+model Gambling_game_list {
+  nGameID                         Int                 @id                     
+  strGameName                     String 
+  nGameType                       Int 
+  nGamblingWaterLevelGold         Int 
+  nGamblingBalanceGold            Int 
+  nGamblingWinPool                Int 
+  nGamblingUpdateBalanceGold      Int 
+  nGamblingBigWinLevel            String 
+  nGamblingBigWinLuck             String 
+  expectRTP                       Int 
+}
+
+model Lotterylog {
+  id                              Int                 @id                  @default(autoincrement())            
+  userid                          Int 
+  bet                             Int 
+  line_s                          Int                                      
+  score_before                    Int                                      
+  score_linescore                 Int                                      
+  score_win                       Int                                      
+  score_current                   Int                                             
+  free_count_before               Int                                             
+  free_count_win                  Int                                             
+  free_count_current              Int                                             
+  result_array                    String                                             
+  lotteryTime                     DateTime            @default(now())                                              
+  mark                            Int                                             
+}
+
+model Score_pool {
+  id                              Int                 @id                  @default(autoincrement())            
+  score_pool                      Int 
+  change_time                     DateTime            @default(now())                                              
+}
+
+model Scoretotal {
+  serve_id                        Int                 @id                  
+  winScoreTotal                   Float 
+  lotteryTotal                    Int                                              
+  updateTime                      DateTime            @default(now())                                              
+}
+
+model Scoretotallog {
+  id                              Int                 @id                  @default(autoincrement())            
+  serve_id                        Int                                 
+  winscore                        Float 
+  lotteryCount                    Int                                              
+  CreateTime                      DateTime            @default(now())                                              
+}
+
+model Useraccounts {
+  Id                              Int                 @id                    
+  freeCount                       Int                                 
+  freeType                        Int 
+  AddDate                         DateTime            @default(now())                                              
+  LotteryCount                    Int                                              
+  nFreeIndex                      String                                              
+  gameDict                        String                                              
+}

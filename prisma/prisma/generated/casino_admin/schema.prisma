@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/casino_admin"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "${HOST}casino_admin"
+}
+
+model admin_role {
+  id                    Int          @id @default(autoincrement())
+  name                  String
+  can_get_user          Boolean
+  can_create_user       Boolean
+  can_create_admin      Boolean
+  can_delete_user       Boolean
+  can_alter_user        Boolean
+  can_search_users      Boolean
+  can_batch_alter_users Boolean
+  can_set_perms         Boolean
+  bypass_auth           Boolean
+  active                Boolean
+  superuser             Boolean
+  updated_at            DateTime     @default(now())
+  can_list_users        Boolean
+  admin_user            admin_user[]
+}
+
+model admin_user {
+  id           Int        @default(autoincrement()) @unique
+  email        String
+  password     String
+  name         String
+  role_id      Int
+  active       Boolean    @default(true)
+  token        String?
+  created_at   DateTime   @default(now())
+  updated_at   DateTime?
+  access_token String?
+  id_token     String?
+  admin_role   admin_role @relation(fields: [role_id], references: [id], onUpdate: Restrict, map: "adminRole")
+  user         user[]
+
+  @@id([id, email, name])
+  @@index([role_id], map: "adminRole")
+}
+
+model user {
+  id            Int        @default(autoincrement())
+  email         String
+  password      String
+  username      String
+  name          String
+  score         Int
+  diamond       Int
+  login_count   Int        @default(0)
+  phone_number  String
+  head_image    String
+  sex           Boolean?   @default(true)
+  bankPwd       String
+  bankScore     Int
+  is_vip        Boolean
+  access_token  Int?
+  id_token      Int?
+  active        Boolean    @default(true)
+  created_at    DateTime   @default(now())
+  updated_at    DateTime?
+  qa_bypass     String?
+  created_by_id Int
+  is_robot      Boolean    @default(false)
+  passval       String
+  admin_user    admin_user @relation(fields: [created_by_id], references: [id], onUpdate: Restrict, map: "adminUser")
+
+  @@id([id, email, username, phone_number])
+  @@index([created_by_id], map: "adminUser")
+}

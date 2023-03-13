@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/landlords"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:Alibaba@1408@localhost:3306/landlords"
+}
+
+model Config {
+  id                              Int           @id                  @default(autoincrement())            
+  flag                            String 
+  value                           Int 
+  type                            Int 
+  award                           Int 
+}
+
+model Downcoinlog {
+  id                        Int                 @id                     @default(autoincrement())         
+  userId                    Int 
+  MatchId                   Int 
+  downCoin                  Int 
+  winCoin                   Int 
+  open2                     Int 
+  open3                     Int 
+  open4                     Int 
+  tax                       Int 
+  isBanker                  Int 
+  serverId                  Int 
+  tableid                   Int 
+  Adddate                   DateTime            @default(now()) 
+  mark                      Int   
+}
+
+model Log_baoming {
+  uid                       Int                 @id                            
+  allc                      Int 
+  lostc                     Int 
+  play                      Int                                      
+  win_all                   Int                                      
+  dizhu_num                 Int                                      
+  win_dizhu                 Int                                      
+  bm_score                  Int                                             
+  result                    Int                                             
+}
+
+model Log_baoming_save {
+  id                        Int                 @id                     @default(autoincrement())         
+  uid                       Int                                             
+  allc                      Int 
+  play                      Int                                      
+  win_all                   Int                                      
+  dizhu_num                 Int                                      
+  win_dizhu                 Int                                      
+  bm_score                  Int                                             
+  result                    Int                                             
+  result_res                String                                             
+  is_send_win               Int                                             
+  create_time               String                                             
+  nick_name                 String                                             
+  head_url                  String                                             
+}
+
+model Log_temp {
+  id                        Int                 @id                  @default(autoincrement())            
+  uid                       Int 
+  nick_name                 String                                             
+  head_url                  String                                             
+  createtime                String                                             
+  isdizhu                   Int                                             
+  iswin                     Int                                             
+  game_dict                 String                                             
+}
+
+model Log_total {
+  id                        Int                 @id                  @default(autoincrement())            
+  uid                       Int 
+  play                      Int                                      
+  win_all                   Int                                      
+  dizhu_num                 Int                                      
+  win_dizhu                 Int                                      
+  bm_score                  Int                                             
+}
+
+model Matchlog {
+  matchId                   Int                 @id                  @default(autoincrement())            
+  open11                    String 
+  open12                    String                                              
+  open21                    String                                             
+  open22                    String                                             
+  open31                    String                                             
+  open32                    String                                             
+  open41                    String                                             
+  open42                    String                                             
+  open2winbet               Int                                             
+  open3winbet               Int                                             
+  open4winbet               Int                                             
+  tableId                   Int                                             
+  serveId                   Int                                             
+  adddate                   DateTime            @default(now())                                              
+}

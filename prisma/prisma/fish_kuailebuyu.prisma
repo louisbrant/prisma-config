@@ -1,0 +1,194 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/fish_kuailebuyu"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:Alibaba@1408@localhost:3306/fish_kuailebuyu"
+}
+
+model Catch_chance {
+  serveId                   Int             @id                         
+  chance                    Float	        
+}
+
+model Control_pool {
+  serveId                   Int             @id                         
+  pool                      Int 
+  line                      Int
+}
+
+model Control_user {
+  uid                       Int             @id                         
+  chance                    Float 
+}
+
+model Daysendprizevalue {
+  day                       Int             @id                         
+  value                     Int 
+}
+
+model Fishlog {
+  id                        Int             @id                     @default(autoincrement())         
+  userid                    Int 
+  usecoin                   Int 
+  wincoin                   Int 
+  balanceTime               DateTime        @default(now())
+  mark                      Int 
+  serverId                  Int 
+}
+
+model Getcoin { 
+  id                        Int             @id                     @default(autoincrement())         
+  userId                    Int 
+  getCoin                   Int 
+  adddate                   DateTime        @default(now())
+  mark                      Int 
+  isget                     Int 
+  day                       Int 
+}
+
+model Lv {
+  lv                        Int             @id                         
+  wincoinvalue              Int 
+}
+
+model Matchrandking { 
+  id                        Int             @id                     @default(autoincrement())         
+  roomType                  Int 
+  matchId                   Int 
+  userId                    Int        
+  score                     Int 
+  lastTime                  DateTime        @default(now()) 
+  winPropId                 Int 
+  winPropCount              Int 
+  winScore                  Int 
+  rankIdx                   Int 
+  isGetPrize                Int 
+  isMsg                     Int 
+  title                     String 
+  msg                       String 
+}
+
+model Pool {
+  serveId                   Int             @id                         
+  pool                      Int 
+  virtualPool               Int 
+}
+
+model Sendprize {
+  idx                       Int             @id                      @default(autoincrement())        
+  propid                    Int 
+  propcount                 Int 
+  score                     Int 
+}
+
+model Shootprize {
+  lv                        Int             @id                      @default(autoincrement())        
+  value                     Int 
+  propid                    Int 
+  propcount                 Int 
+  winsocre                  Int 
+}
+
+model T_accounts {
+  account                   String          @id                         
+  password                  String 
+}
+
+model T_games {
+  room_uuid                 String          @id                         
+  game_index                Int 
+  base_info                 String 
+  create_time               Int 
+  snapshots                 String 
+  action_records            String 
+  result                    String 
+}
+
+model T_games_archive {
+  room_uuid                 String          @id                         
+  game_index                Int 
+  base_info                 String         
+  create_time               Int 
+  snapshots                 String 
+  action_records            String 
+  result                    String 
+}
+
+model T_guests {
+  guest_account             String          @id                 
+}
+
+model T_message {
+  type                      String          @id                         
+  msg                       String 
+  version                   String         
+}
+
+model T_property {
+  propId                    Int             @id                      @default(autoincrement())        
+  userid                    Int 
+  ice                       Int         
+}
+
+model T_rooms {
+  uuid                      String          @id                         
+  id                        String 
+  base_info                 String         
+  create_time               Int 
+  num_of_turns              Int 
+  next_button               Int 
+  user_id0                  Int 
+  user_icon0                String 
+  user_name0                String 
+  user_score0               Int 
+  user_id1                  Int 
+  user_icon1                String 
+  user_name1                String 
+  user_score1               Int 
+  user_id2                  Int 
+  user_icon2                String 
+  user_name2                String 
+  user_score2               Int 
+  user_id3                  Int 
+  user_icon3                String 
+  user_name3                String 
+  user_score3               Int 
+  ip                        String 
+  port                      Int 
+  baseScore                 Int 
+}
+
+model T_users {
+  userid                    Int             @id                      @default(autoincrement())        
+  account                   String 
+  name                      String         
+  sex                       Int 
+  headimg                   String 
+  lv                        Int 
+  exp                       Int 
+  coins                     Int 
+  vip                       Int 
+  money                     Int 
+  gems                      Int 
+  roomid                    String 
+  history                   String 
+  power                     Int 
+  RenameCount               Int 
+  ReHeadCount               Int 
+  propId                    Int 
+}
+
+model Usecoin {
+  userId                    Int             @id                         
+  useCoin                   Int 
+  getprizelv                Int     
+}
+
+model Wincoin {
+  userId                    Int             @id                         
+  wincoin                   Int 
+  lv                        Int     
+}

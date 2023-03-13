@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/game_hongbao"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:Alibaba@1408@localhost:3306/game_hongbao"
+}
+
+model Downcoinlog {
+  id                        Int               @id                     @default(autoincrement())         
+  userId                    Int 
+  MatchId                   Int 
+  callBet                   Int 
+  selectBet                 Int 
+  severBet                  Int 
+  winCoin                   Int 
+  tax                       Int 
+  isBanker                  Int 
+  serverId                  Int 
+  tableid                   Int 
+  Adddate                   DateTime          @default(now()) 
+  mark                      Int 
+}
+
+model Matchlog {
+  matchId                   Int               @id                  @default(autoincrement())            
+  open11                    String 
+  open12                    String 
+  open13                    String                                      
+  open14                    String                                      
+  open15                    String                                      
+  open21                    String                                      
+  open22                    String                                             
+  open23                    String                                             
+  open24                    String                                             
+  open25                    String                                             
+  open31                    String                                             
+  open32                    String                                             
+  open33                    String                                             
+  open34                    String                                             
+  open35                    String                                       
+  open41                    String                                             
+  open42                    String                                             
+  open43                    String                                             
+  open44                    String                                             
+  open45                    String                                       
+  open51                    String                                             
+  open52                    String                                             
+  open53                    String                                             
+  open54                    String                                             
+  open55                    String                                                  
+  open1winbet               Int                                                  
+  open2winbet               Int                                                  
+  open3winbet               Int                                                  
+  open4winbet               Int                                                  
+  open5winbet               Int                                                  
+  tableId                   Int                                                  
+  serveId                   Int                                                  
+  adddate                   DateTime          @default(now())                                      
+}

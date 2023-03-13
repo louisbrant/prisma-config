@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/game_log"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:Alibaba@1408@localhost:3306/game_log"
+}
+
+model Yu_xia_xie_club_table_log {
+  id                        Int            @id              @default(autoincrement())                
+  user_id                   Int 
+  table_dict                String 
+  add_date                  DateTime 
+  club_id                   String 
+}
+
+model Yu_xia_xie_gold_table_log {
+  id                        Int            @id              @default(autoincrement())                
+  user_id                   Int 
+  table_dict                String 
+  add_date                  DateTime 
+}
+
+model Yu_xia_xie_table_log {
+  id                        Int            @id              @default(autoincrement())                
+  user_id                   Int 
+  table_dict                String 
+  add_date                  DateTime 
+}
