@@ -1,1433 +1,176 @@
-const { PrismaClient } = require('./prisma/generated/la_ba')
+const { PrismaClient } = require('./prisma/generated/casino_data')
 
 const prisma = new PrismaClient()
-const gambling_game_list_data = [
-    {
-        nGameID: 100,
-        strGameName: 'jinglingnvwang',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 5122000,
-        nGamblingWinPool: 83956956,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,10',
-        expectRTP: 80
-    },
-    {
-        nGameID: 101,
-        strGameName: 'wanshengjie',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 800,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 102,
-        strGameName: 'zuqiu',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 2200,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 501,
-        strGameName: 'jincaishen',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 19857,
-        nGamblingWinPool: 15915,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 105,
-        strGameName: 'shuiguoji',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 10,
-        nGamblingBalanceGold: 5441810,
-        nGamblingWinPool: 94261,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 135,
-        strGameName: 'zuanshi',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 199971117,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 100
-    },
-    {
-        nGameID: 136,
-        strGameName: 'aijizhenbao',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 5370,
-        nGamblingWinPool: 482,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1001,
-        strGameName: 'xi you zheng ba 2',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 20,
-        nGamblingBalanceGold: 2381660,
-        nGamblingWinPool: 6467000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,100',
-        nGamblingBigWinLuck: '0,0,30',
-        expectRTP: 100
-    },
-    {
-        nGameID: 115,
-        strGameName: 'sanjiaomozhen',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 661760,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 106,
-        strGameName: 'shuiguojishuban',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 60300,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1002,
-        strGameName: 'bairenrussian_roulette',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 43900,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1003,
-        strGameName: 'bairenlonghudou',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 10,
-        nGamblingBalanceGold: 100,
-        nGamblingWinPool: -130930256,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1004,
-        strGameName: 'bairenbaijiale',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 20,
-        nGamblingBalanceGold: 20,
-        nGamblingWinPool: -64646465,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,400',
-        nGamblingBigWinLuck: '0,0,60',
-        expectRTP: 100
-    },
-    {
-        nGameID: 5201,
-        strGameName: 'sen_lin_wu_hui',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 10,
-        nGamblingBalanceGold: 1591710,
-        nGamblingWinPool: 2929331,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,50',
-        nGamblingBigWinLuck: '0,0,20',
-        expectRTP: 100
-    },
-    {
-        nGameID: 5200,
-        strGameName: 'lianhuanduobao',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 705,
-        nGamblingWinPool: 2274000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 6005,
-        strGameName: 'caidaxiao',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 2699500,
-        nGamblingWinPool: 2715190,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,300',
-        nGamblingBigWinLuck: '0,0,50',
-        expectRTP: 100
-    },
-    {
-        nGameID: 6006,
-        strGameName: 'yuxaixie',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13401,
-        strGameName: 'qiangzhuangniuniu1',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0',
-        nGamblingBigWinLuck: '',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13402,
-        strGameName: 'qiangzhuangniuniu2',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '',
-        nGamblingBigWinLuck: '',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13403,
-        strGameName: 'qiangzhuangniuniu3',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '',
-        nGamblingBigWinLuck: '',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13404,
-        strGameName: 'qiangzhuangniuniu4',
-        nGameType: 3,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '',
-        nGamblingBigWinLuck: '',
-        expectRTP: 100
-    },
-    {
-        nGameID: 99999,
-        strGameName: 'luck_tree',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 40,
-        nGamblingBalanceGold: 3960,
-        nGamblingWinPool: 99,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,600',
-        nGamblingBigWinLuck: '0,0,70',
-        expectRTP: 100
-    },
-    {
-        nGameID: 3901,
-        strGameName: 'blackjack',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 2552400,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13501,
-        strGameName: 'bairenniuniu',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '',
-        nGamblingBigWinLuck: '',
-        expectRTP: 100
-    },
-    {
-        nGameID: 200,
-        strGameName: '冰球突破',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 14650,
-        nGamblingWinPool: 120435,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,800',
-        nGamblingBigWinLuck: '0,0,90',
-        expectRTP: 100
-    },
-    {
-        nGameID: 138,
-        strGameName: 'panjinlian',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 1000000,
-        nGamblingWinPool: 1000000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 100
-    },
-    {
-        nGameID: 108,
-        strGameName: 'Safari',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 10,
-        nGamblingBalanceGold: 1001610,
-        nGamblingWinPool: 4954,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 100
-    },
-    {
-        nGameID: 144,
-        strGameName: '锦衣卫',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 14500,
-        nGamblingWinPool: 13000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 109,
-        strGameName: 'RomeGlory',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 1000000,
-        nGamblingWinPool: 496844,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 100
-    },
-    {
-        nGameID: 103,
-        strGameName: 'joker',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 1001580,
-        nGamblingWinPool: 1001580,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 90
-    },
-    {
-        nGameID: 15040,
-        strGameName: 'normal',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 1001580,
-        nGamblingWinPool: 1001580,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '0,0,80',
-        expectRTP: 100
-    },
-    {
-        nGameID: 141,
-        strGameName: '阿拉丁',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 266087,
-        nGamblingWinPool: 325316,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 110,
-        strGameName: '铃铛游戏',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 667913,
-        nGamblingWinPool: 48049,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13202,
-        strGameName: '红包2',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13201,
-        strGameName: '红包1',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,1',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13203,
-        strGameName: '红包3',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,1',
-        expectRTP: 100
-    },
-    {
-        nGameID: 13204,
-        strGameName: '红包4',
-        nGameType: 1,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,1',
-        expectRTP: 100
-    },
-    {
-        nGameID: 149,
-        strGameName: '上海00发',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 13330,
-        nGamblingWinPool: 190,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 157,
-        strGameName: '忠肝益胆',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 21775,
-        nGamblingWinPool: 13445,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 156,
-        strGameName: '与蒲团2',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 24874,
-        nGamblingWinPool: 33059,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 147,
-        strGameName: '哪吒闹海',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 3,
-        nGamblingBalanceGold: 28375,
-        nGamblingWinPool: 11195,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 160,
-        strGameName: '水果小玛丽',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 122868,
-        nGamblingWinPool: 13596,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 145,
-        strGameName: '吕布戏貂婵',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 10531,
-        nGamblingWinPool: 9889,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 150,
-        strGameName: '太极熊猫',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 20290,
-        nGamblingWinPool: 100710,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1007,
-        strGameName: 'ATT',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 5343035,
-        nGamblingWinPool: 1814465,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,300',
-        nGamblingBigWinLuck: '0,0,50',
-        expectRTP: 100
-    },
-    {
-        nGameID: 148,
-        strGameName: '潘金莲2',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 3,
-        nGamblingBalanceGold: 10900,
-        nGamblingWinPool: 33600,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 146,
-        strGameName: '梦幻女神',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 36925,
-        nGamblingWinPool: 14965,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 151,
-        strGameName: '旺宝',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 25567,
-        nGamblingWinPool: 96097,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 152,
-        strGameName: '五福临门',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 13434,
-        nGamblingWinPool: 13364,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 154,
-        strGameName: '一路发发发',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 20110,
-        nGamblingWinPool: 13060,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 142,
-        strGameName: '财源滚滚',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 10,
-        nGamblingBalanceGold: 481051,
-        nGamblingWinPool: 3209,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 116,
-        strGameName: '水浒传',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 10036,
-        nGamblingWinPool: 15285,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 111,
-        strGameName: '僵尸先生',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 11608,
-        nGamblingWinPool: 770,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 155,
-        strGameName: '玉蒲团',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 13795,
-        nGamblingWinPool: 74856,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 161,
-        strGameName: '阿兹特克',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 16694,
-        nGamblingWinPool: 45359,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 162,
-        strGameName: '财神夺宝',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 604150,
-        nGamblingWinPool: 4654,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1008,
-        strGameName: '奔驰宝马',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 390290,
-        nGamblingWinPool: 421310,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1006,
-        strGameName: '皇家赛马',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 4801240,
-        nGamblingWinPool: 1201710,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 174,
-        strGameName: 'GreatBlue',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 57681,
-        nGamblingWinPool: 25627,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 178,
-        strGameName: 't-rex',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 51700,
-        nGamblingWinPool: 19400,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 225,
-        strGameName: 'FireLinkR66',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: -111755,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 223,
-        strGameName: 'FireLinkOS',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: -948830,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 224,
-        strGameName: 'FireLinkCS',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: -24283660,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 177,
-        strGameName: 'IrishLuck',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 179,
-        strGameName: 'Iceland',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 180,
-        strGameName: 'PantherMoon',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 181,
-        strGameName: 'IndianMyth',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 182,
-        strGameName: 'JapanForture',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 183,
-        strGameName: 'BonusBears\r\nBonusBears',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 10263,
-        nGamblingWinPool: 11993,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 190,
-        strGameName: '鹰夫人',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 107350,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 107,
-        strGameName: '三打白骨精',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 10117,
-        nGamblingWinPool: 3314,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 206,
-        strGameName: '明星97',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 184,
-        strGameName: '月光宝盒',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 10957,
-        nGamblingWinPool: 92782,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 185,
-        strGameName: '美女游泳队',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 10616,
-        nGamblingWinPool: 56784,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 186,
-        strGameName: '维加斯之夜',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 51600,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 187,
-        strGameName: '财神到',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 1385230,
-        nGamblingWinPool: 4650,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 188,
-        strGameName: 'fire88',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 1080,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 189,
-        strGameName: '西游记',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 10780,
-        nGamblingWinPool: 75430,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 191,
-        strGameName: '包青天',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 194,
-        strGameName: '招财进宝',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 2080,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 192,
-        strGameName: '潘金莲gw',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 1690,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 121,
-        strGameName: '水果之夏',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 1,
-        nGamblingBalanceGold: 42360,
-        nGamblingWinPool: 89932,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 131,
-        strGameName: '冰球突破2',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 14980,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 193,
-        strGameName: '八卦2',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 74390,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1009,
-        strGameName: '火凤凰',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 627550,
-        nGamblingWinPool: 415950,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,300',
-        nGamblingBigWinLuck: '0,0,50',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1011,
-        strGameName: '推筒子',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,300',
-        nGamblingBigWinLuck: '0,0,50',
-        expectRTP: 100
-    },
-    {
-        nGameID: 113,
-        strGameName: '9线拉王',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 94400,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '0,0,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 219,
-        strGameName: '疯狂小丑',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 185208,
-        nGamblingWinPool: 111942,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1010,
-        strGameName: '德州牛仔',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 1452905470,
-        nGamblingWinPool: 2995078900,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,300',
-        nGamblingBigWinLuck: '0,0,50',
-        expectRTP: 100
-    },
-    {
-        nGameID: 220,
-        strGameName: '大富豪',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 18580,
-        nGamblingWinPool: 870,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 221,
-        strGameName: '金库',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 42638,
-        nGamblingWinPool: -35898,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 222,
-        strGameName: 'FireLinkRR',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 693640,
-        nGamblingWinPool: -7219305,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1013,
-        strGameName: 'keno',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 30,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1',
-        nGamblingBigWinLuck: '0,0,50',
-        expectRTP: 100
-    },
-    {
-        nGameID: 226,
-        strGameName: 'WildBuffAlo',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '900,950,1000',
-        expectRTP: 100
-    },
-    {
-        nGameID: 227,
-        strGameName: 'LockitLink_nightlife',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '900,950,1000',
-        expectRTP: 100
-    },
-    {
-        nGameID: 228,
-        strGameName: 'goldcup',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 8125,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 302,
-        strGameName: 'luckyPoker',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 68100,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 229,
-        strGameName: 'freespin',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 38,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 230,
-        strGameName: 'superspin',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 84,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 231,
-        strGameName: 'jackpotspin',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 13842,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 232,
-        strGameName: 'lucky777',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 1291,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1014,
-        strGameName: 'ColorGame',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 5185000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1015,
-        strGameName: '飞禽走兽',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 12510,
-        nGamblingWinPool: 781490,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 303,
-        strGameName: 'penaltyshooters',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: -34106645,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,1000',
-        nGamblingBigWinLuck: '95,98,100',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1019,
-        strGameName: '百人斗牛',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 35565,
-        nGamblingWinPool: 479500,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1016,
-        strGameName: '翻硬币',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 3122600,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1017,
-        strGameName: '斗鸡',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1018,
-        strGameName: '红黑大战',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 10005,
-        nGamblingWinPool: 1362000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1020,
-        strGameName: '神兽',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 5,
-        nGamblingBalanceGold: 20000,
-        nGamblingWinPool: 459800,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 233,
-        strGameName: 'premierleaguestar',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: -59375,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 235,
-        strGameName: 'spinBig',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 2,
-        nGamblingBalanceGold: 24733,
-        nGamblingWinPool: 2157650,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,400',
-        nGamblingBigWinLuck: '0,0,60',
-        expectRTP: 92
-    },
-    {
-        nGameID: 234,
-        strGameName: 'ghostpirates',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 3,
-        nGamblingBalanceGold: 24670,
-        nGamblingWinPool: -792520,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,400',
-        nGamblingBigWinLuck: '0,0,60',
-        expectRTP: 100
-    },
-    {
-        nGameID: 236,
-        strGameName: '沧海遗珠',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 123575,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 237,
-        strGameName: 'hotspin',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10900,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,200',
-        nGamblingBigWinLuck: '0,0,40',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1021,
-        strGameName: '抢庄百家乐',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: -1790064868,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1022,
-        strGameName: '俄罗斯轮盘36',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 10000,
-        nGamblingWinPool: 10000,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '0,0,700',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 301,
-        strGameName: 'russian_roulette',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    },
-    {
-        nGameID: 1000,
-        strGameName: 'xiyouzhengba',
-        nGameType: 0,
-        nGamblingWaterLevelGold: 0,
-        nGamblingBalanceGold: 0,
-        nGamblingWinPool: 0,
-        nGamblingUpdateBalanceGold: 0,
-        nGamblingBigWinLevel: '10,5,1',
-        nGamblingBigWinLuck: '1,5,10',
-        expectRTP: 100
-    }];
-
+const gameListData = [
+    {
+        eGameName: "Space Shooter",
+        cGameName: '太空射手',
+        type: 1,
+        id: 13,
+        json: JSON.stringify({
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    entryCoin: 100,
+                    config_ip: '72.46.128.50',
+                    port: 13131
+                },
+                {
+                    server: 2,
+                    bet: 5,
+                    entryCoin: 1000,
+                    config_ip: '72.46.128.50',
+                    port: 13132
+                },
+                {
+                    server: 3,
+                    bet: 10,
+                    entryCoin: 5000,
+                    config_ip: '72.46.128.50',
+                    port: 13133
+                }
+            ]
+        })
+    },
+    {
+        eGameName: "Eu fish",
+        cGameName: '欧盟鱼类',
+        type: 1,
+        id: 2001,
+        json: JSON.stringify({
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    entryCoin: 100,
+                    config_ip: '72.46.128.50',
+                    port: 13921
+                },
+                {
+                    server: 2,
+                    bet: 5,
+                    entryCoin: 1000,
+                    config_ip: '72.46.128.50',
+                    port: 13922
+                },
+                {
+                    server: 3,
+                    bet: 10,
+                    entryCoin: 5000,
+                    config_ip: '72.46.128.50',
+                    port: 13923
+                }
+            ]
+        })
+    },
+    {
+        eGameName: "Shanghai Tycoon",
+        cGameName: '上海零零发',
+        type: 1,
+        id: 149,
+        json: JSON.stringify({
+            serverId: 15049,
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    Match: 0,
+                    entryCoin: 1000,
+                    gift: 0,
+                    ip: '72.46.128.50',
+                    port: 15049
+                }
+            ]
+        })
+    },
+    {
+        eGameName: "Multiplayer 5 Cards Poker",
+        cGameName: '百人场牛牛',
+        type: 1,
+        id: 1019,
+        json: JSON.stringify({
+            serverId: 16019,
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    Match: 0,
+                    entryCoin: 100,
+                    gift: 0,
+                    ip: '72.46.128.50',
+                    port: 16019
+                }
+            ]
+        })
+    },
+    {
+        eGameName: "Banco Baccarat",
+        cGameName: '百场乐',
+        type: 1,
+        id: 1021,
+        json: JSON.stringify({
+            serverId: 16021,
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    Match: 0,
+                    entryCoin: 100,
+                    gift: 0,
+                    ip: '72.46.128.50',
+                    port: 16021
+                }
+            ]
+        })
+    },
+    {
+        eGameName: "Multiplayer 5 Cards Poker",
+        cGameName: '百人场牛牛',
+        type: 1,
+        id: 3501,
+        json: JSON.stringify({
+            serverId: 13501,
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    Match: 0,
+                    entryCoin: 100,
+                    gift: 0,
+                    ip: '72.46.128.50',
+                    port: 13501
+                }
+            ]
+        })
+    },
+    {
+        eGameName: "God Of Wealth",
+        cGameName: '财神夺宝',
+        type: 1,
+        id: 162,
+        json: JSON.stringify({
+            serverId: 15066,
+            normal: [
+                {
+                    server: 1,
+                    bet: 1,
+                    Match: 0,
+                    entryCoin: 100,
+                    gift: 0,
+                    ip: '72.46.128.50',
+                    port: 15066
+                }
+            ]
+        })
+    }
+]
 async function main() {
-    console.log(`Start seeding ...`)
-    for (const u of gambling_game_list_data) {
-        const user = await prisma.gambling_game_list.create({
+    for (const u of gameListData) {
+        const data = await prisma.gameList.create({
             data: u,
         })
-        console.log(`Created user with id: ${user.id}`)
     }
-    console.log(`Seeding finished.`)
 }
 
 main()

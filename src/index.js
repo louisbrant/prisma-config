@@ -24,13 +24,13 @@ async function confirmprisma() {
 
   // const result = await prisma.user.findMany({})
   // console.log("result=>", result);
-  // const otherprisma = new PrismaClient({ datasources: { db: { url: 'mysql://root:Alibaba@1408@localhost:3306/prisma' } } })
+  // const otherprisma = new PrismaClient({ datasources: { db: { url: 'mysql://root:@localhost:3306/prisma' } } })
   // const otherresult = await otherprisma.user.findMany({})
   // console.log("otherresult=>", otherresult);
 
 
 
-  // const anotheexamplerprisma = new PrismaClient({ datasources: { db: { url: 'mysql://root:Alibaba@1408@localhost:3306/otherprismas' } } })
+  // const anotheexamplerprisma = new PrismaClient({ datasources: { db: { url: 'mysql://root:@localhost:3306/otherprismas' } } })
   // const anotherexampleresult = await anotheexamplerprisma.example.findMany({})
   // console.log("anotherexampleresult=>", anotherexampleresult);
 }

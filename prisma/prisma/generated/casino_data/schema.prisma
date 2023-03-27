@@ -1,0 +1,118 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated/casino_data"
+}
+
+datasource db {
+    provider = "postgres"
+    url      = "postgres://postgres:Alibaba@1408@localhost:5432/casino_data"
+}
+
+model Admin {
+    id          String          @id @default(uuid()) @db.Uuid
+    email       String          @db.VarChar(30)
+    password    String          @db.VarChar(100)
+    name        String          @db.VarChar(30)
+    token       String?         @db.VarChar(100)
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime?       @updatedAt
+    accessToken String?         @db.VarChar(100)
+    agent       Agent[]
+    history     ActionHistory[] @relation("AdminActionHistory")
+}
+
+model Agent {
+    id          String          @id @default(uuid()) @db.Uuid
+    email       String          @db.VarChar(30)
+    password    String          @db.VarChar(100)
+    name        String          @db.VarChar(30)
+    active      Boolean         @default(true)
+    token       String?         @db.VarChar(100)
+    qauota      Int             @default(0)
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime?       @updatedAt
+    accessToken String?         @db.VarChar(100)
+    users       User[]
+    adminId     String          @db.Uuid
+    createdBy   Admin           @relation(fields: [adminId], references: [id], onUpdate: Cascade)
+    history     ActionHistory[] @relation("AgentActionHistory")
+}
+
+model User {
+    id               String             @id @default(uuid()) @db.Uuid
+    email            String             @db.VarChar(30)
+    username         String             @db.VarChar(30)
+    password         String             @db.VarChar(100)
+    headImage        String             @db.VarChar(100)
+    active           Boolean            @default(true)
+    token            String             @db.VarChar(100)
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @updatedAt
+    accessToken      String             @db.VarChar(100)
+    agentId          String             @db.Uuid
+    createdByAgent   Agent              @relation(fields: [agentId], references: [id], onUpdate: Cascade)
+    balance          Balance[]
+    betDetailHistory BetDetailHistory[]
+    paymentHistory   PaymentHistory[]
+    history          ActionHistory[]    @relation("UserActionHistory")
+}
+
+model ActionHistory {
+    id           String   @id @default(uuid()) @db.Uuid
+    type         Int
+    newValueJson Json?
+    ip           String   @db.VarChar(20)
+    createdAt    DateTime @default(now())
+    userId       String?  @db.Uuid
+    agentId      String?  @db.Uuid
+    adminId      String?  @db.Uuid
+    user         User?    @relation("UserActionHistory", fields: [userId], references: [id], map: "User_history")
+    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id], map: "Agent_history")
+    admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id], map: "Admin_history")
+}
+
+model Balance {
+    id        String   @id @default(uuid()) @db.Uuid
+    type      Int
+    balance   Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    ownerId   String   @db.Uuid
+    owner     User     @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
+}
+
+model GameList {
+    id               Int                @id
+    eGameName        String             @db.VarChar(100)
+    cGameName        String             @db.VarChar(30)
+    type             Int
+    json             Json?
+    createdAt        DateTime           @default(now())
+    betDetailHistory BetDetailHistory[]
+}
+
+model PaymentHistory {
+    id          String   @id @default(uuid()) @db.Uuid
+    beforeScore Int
+    changeScore Int
+    newScore    Int
+    approval    Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    approvalAt  DateTime @updatedAt
+    ownerId     String   @db.Uuid
+    owner       User     @relation(fields: [ownerId], references: [id], onUpdate: Cascade, map: "history")
+}
+
+model BetDetailHistory {
+    id          String   @id @default(uuid()) @db.Uuid
+    beforeScore Int
+    betScore    Int
+    winScore    Int
+    newScore    Int
+    createAt    DateTime @default(now())
+    updateAt    DateTime @updatedAt
+    ownerId     String   @db.Uuid
+    gameId      Int
+    owner       User     @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
+    gameList    GameList @relation(fields: [gameId], references: [id], onUpdate: Cascade)
+}
