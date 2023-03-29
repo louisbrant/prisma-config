@@ -36,7 +36,7 @@ export type Agent = {
   name: string
   active: boolean
   token: string | null
-  qauota: number
+  quota: number
   createdAt: Date
   updatedAt: Date | null
   accessToken: string | null
@@ -54,10 +54,10 @@ export type User = {
   password: string
   headImage: string
   active: boolean
-  token: string
+  token: string | null
   createdAt: Date
-  updatedAt: Date
-  accessToken: string
+  updatedAt: Date | null
+  accessToken: string | null
   agentId: string
 }
 
@@ -85,7 +85,7 @@ export type Balance = {
   type: number
   balance: number
   createdAt: Date
-  updatedAt: Date
+  updatedAt: Date | null
   ownerId: string
 }
 
@@ -113,7 +113,7 @@ export type PaymentHistory = {
   newScore: number
   approval: boolean
   createdAt: Date
-  approvalAt: Date
+  approvalAt: Date | null
   ownerId: string
 }
 
@@ -128,7 +128,7 @@ export type BetDetailHistory = {
   winScore: number
   newScore: number
   createAt: Date
-  updateAt: Date
+  updateAt: Date | null
   ownerId: string
   gameId: number
 }
@@ -2174,11 +2174,11 @@ export namespace Prisma {
   }
 
   export type AgentAvgAggregateOutputType = {
-    qauota: number | null
+    quota: number | null
   }
 
   export type AgentSumAggregateOutputType = {
-    qauota: number | null
+    quota: number | null
   }
 
   export type AgentMinAggregateOutputType = {
@@ -2188,7 +2188,7 @@ export namespace Prisma {
     name: string | null
     active: boolean | null
     token: string | null
-    qauota: number | null
+    quota: number | null
     createdAt: Date | null
     updatedAt: Date | null
     accessToken: string | null
@@ -2202,7 +2202,7 @@ export namespace Prisma {
     name: string | null
     active: boolean | null
     token: string | null
-    qauota: number | null
+    quota: number | null
     createdAt: Date | null
     updatedAt: Date | null
     accessToken: string | null
@@ -2216,7 +2216,7 @@ export namespace Prisma {
     name: number
     active: number
     token: number
-    qauota: number
+    quota: number
     createdAt: number
     updatedAt: number
     accessToken: number
@@ -2226,11 +2226,11 @@ export namespace Prisma {
 
 
   export type AgentAvgAggregateInputType = {
-    qauota?: true
+    quota?: true
   }
 
   export type AgentSumAggregateInputType = {
-    qauota?: true
+    quota?: true
   }
 
   export type AgentMinAggregateInputType = {
@@ -2240,7 +2240,7 @@ export namespace Prisma {
     name?: true
     active?: true
     token?: true
-    qauota?: true
+    quota?: true
     createdAt?: true
     updatedAt?: true
     accessToken?: true
@@ -2254,7 +2254,7 @@ export namespace Prisma {
     name?: true
     active?: true
     token?: true
-    qauota?: true
+    quota?: true
     createdAt?: true
     updatedAt?: true
     accessToken?: true
@@ -2268,7 +2268,7 @@ export namespace Prisma {
     name?: true
     active?: true
     token?: true
-    qauota?: true
+    quota?: true
     createdAt?: true
     updatedAt?: true
     accessToken?: true
@@ -2370,7 +2370,7 @@ export namespace Prisma {
     name: string
     active: boolean
     token: string | null
-    qauota: number
+    quota: number
     createdAt: Date
     updatedAt: Date | null
     accessToken: string | null
@@ -2403,7 +2403,7 @@ export namespace Prisma {
     name?: boolean
     active?: boolean
     token?: boolean
-    qauota?: boolean
+    quota?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     accessToken?: boolean
@@ -3409,10 +3409,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active: boolean
-    token: string
+    token: string | null
     createdAt: Date
-    updatedAt: Date
-    accessToken: string
+    updatedAt: Date | null
+    accessToken: string | null
     agentId: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -5501,7 +5501,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date | null
     ownerId: string
     _count: BalanceCountAggregateOutputType | null
     _avg: BalanceAvgAggregateOutputType | null
@@ -7494,7 +7494,7 @@ export namespace Prisma {
     newScore: number
     approval: boolean
     createdAt: Date
-    approvalAt: Date
+    approvalAt: Date | null
     ownerId: string
     _count: PaymentHistoryCountAggregateOutputType | null
     _avg: PaymentHistoryAvgAggregateOutputType | null
@@ -8505,7 +8505,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt: Date
-    updateAt: Date
+    updateAt: Date | null
     ownerId: string
     gameId: number
     _count: BetDetailHistoryCountAggregateOutputType | null
@@ -9352,7 +9352,7 @@ export namespace Prisma {
     name: 'name',
     active: 'active',
     token: 'token',
-    qauota: 'qauota',
+    quota: 'quota',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     accessToken: 'accessToken',
@@ -9551,7 +9551,7 @@ export namespace Prisma {
     name?: StringFilter | string
     active?: BoolFilter | boolean
     token?: StringNullableFilter | string | null
-    qauota?: IntFilter | number
+    quota?: IntFilter | number
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
     accessToken?: StringNullableFilter | string | null
@@ -9568,7 +9568,7 @@ export namespace Prisma {
     name?: SortOrder
     active?: SortOrder
     token?: SortOrder
-    qauota?: SortOrder
+    quota?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accessToken?: SortOrder
@@ -9589,7 +9589,7 @@ export namespace Prisma {
     name?: SortOrder
     active?: SortOrder
     token?: SortOrder
-    qauota?: SortOrder
+    quota?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accessToken?: SortOrder
@@ -9611,7 +9611,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter | string
     active?: BoolWithAggregatesFilter | boolean
     token?: StringNullableWithAggregatesFilter | string | null
-    qauota?: IntWithAggregatesFilter | number
+    quota?: IntWithAggregatesFilter | number
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
     accessToken?: StringNullableWithAggregatesFilter | string | null
@@ -9628,10 +9628,10 @@ export namespace Prisma {
     password?: StringFilter | string
     headImage?: StringFilter | string
     active?: BoolFilter | boolean
-    token?: StringFilter | string
+    token?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    accessToken?: StringFilter | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
+    accessToken?: StringNullableFilter | string | null
     agentId?: UuidFilter | string
     createdByAgent?: XOR<AgentRelationFilter, AgentWhereInput>
     balance?: BalanceListRelationFilter
@@ -9690,10 +9690,10 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter | string
     headImage?: StringWithAggregatesFilter | string
     active?: BoolWithAggregatesFilter | boolean
-    token?: StringWithAggregatesFilter | string
+    token?: StringNullableWithAggregatesFilter | string | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string
-    accessToken?: StringWithAggregatesFilter | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    accessToken?: StringNullableWithAggregatesFilter | string | null
     agentId?: UuidWithAggregatesFilter | string
   }
 
@@ -9770,7 +9770,7 @@ export namespace Prisma {
     type?: IntFilter | number
     balance?: IntFilter | number
     createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
     ownerId?: UuidFilter | string
     owner?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -9811,7 +9811,7 @@ export namespace Prisma {
     type?: IntWithAggregatesFilter | number
     balance?: IntWithAggregatesFilter | number
     createdAt?: DateTimeWithAggregatesFilter | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
     ownerId?: UuidWithAggregatesFilter | string
   }
 
@@ -9878,7 +9878,7 @@ export namespace Prisma {
     newScore?: IntFilter | number
     approval?: BoolFilter | boolean
     createdAt?: DateTimeFilter | Date | string
-    approvalAt?: DateTimeFilter | Date | string
+    approvalAt?: DateTimeNullableFilter | Date | string | null
     ownerId?: UuidFilter | string
     owner?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -9925,7 +9925,7 @@ export namespace Prisma {
     newScore?: IntWithAggregatesFilter | number
     approval?: BoolWithAggregatesFilter | boolean
     createdAt?: DateTimeWithAggregatesFilter | Date | string
-    approvalAt?: DateTimeWithAggregatesFilter | Date | string
+    approvalAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
     ownerId?: UuidWithAggregatesFilter | string
   }
 
@@ -9939,7 +9939,7 @@ export namespace Prisma {
     winScore?: IntFilter | number
     newScore?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
-    updateAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeNullableFilter | Date | string | null
     ownerId?: UuidFilter | string
     gameId?: IntFilter | number
     owner?: XOR<UserRelationFilter, UserWhereInput>
@@ -9991,7 +9991,7 @@ export namespace Prisma {
     winScore?: IntWithAggregatesFilter | number
     newScore?: IntWithAggregatesFilter | number
     createAt?: DateTimeWithAggregatesFilter | Date | string
-    updateAt?: DateTimeWithAggregatesFilter | Date | string
+    updateAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
     ownerId?: UuidWithAggregatesFilter | string
     gameId?: IntWithAggregatesFilter | number
   }
@@ -10088,7 +10088,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -10104,7 +10104,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -10120,7 +10120,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10136,7 +10136,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10152,7 +10152,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -10166,7 +10166,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10179,7 +10179,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10193,10 +10193,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     createdByAgent: AgentCreateNestedOneWithoutUsersInput
     balance?: BalanceCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryCreateNestedManyWithoutOwnerInput
@@ -10211,10 +10211,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     agentId: string
     balance?: BalanceUncheckedCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryUncheckedCreateNestedManyWithoutOwnerInput
@@ -10229,10 +10229,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdByAgent?: AgentUpdateOneRequiredWithoutUsersNestedInput
     balance?: BalanceUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUpdateManyWithoutOwnerNestedInput
@@ -10247,10 +10247,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agentId?: StringFieldUpdateOperationsInput | string
     balance?: BalanceUncheckedUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -10265,10 +10265,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     agentId: string
   }
 
@@ -10279,10 +10279,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -10292,10 +10292,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agentId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10378,7 +10378,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     owner: UserCreateNestedOneWithoutBalanceInput
   }
 
@@ -10387,7 +10387,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     ownerId: string
   }
 
@@ -10396,7 +10396,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     owner?: UserUpdateOneRequiredWithoutBalanceNestedInput
   }
 
@@ -10405,7 +10405,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10414,7 +10414,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     ownerId: string
   }
 
@@ -10423,7 +10423,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BalanceUncheckedUpdateManyInput = {
@@ -10431,7 +10431,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10509,7 +10509,7 @@ export namespace Prisma {
     newScore: number
     approval?: boolean
     createdAt?: Date | string
-    approvalAt?: Date | string
+    approvalAt?: Date | string | null
     owner: UserCreateNestedOneWithoutPaymentHistoryInput
   }
 
@@ -10520,7 +10520,7 @@ export namespace Prisma {
     newScore: number
     approval?: boolean
     createdAt?: Date | string
-    approvalAt?: Date | string
+    approvalAt?: Date | string | null
     ownerId: string
   }
 
@@ -10531,7 +10531,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     owner?: UserUpdateOneRequiredWithoutPaymentHistoryNestedInput
   }
 
@@ -10542,7 +10542,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10553,7 +10553,7 @@ export namespace Prisma {
     newScore: number
     approval?: boolean
     createdAt?: Date | string
-    approvalAt?: Date | string
+    approvalAt?: Date | string | null
     ownerId: string
   }
 
@@ -10564,7 +10564,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PaymentHistoryUncheckedUpdateManyInput = {
@@ -10574,7 +10574,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10585,7 +10585,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     owner: UserCreateNestedOneWithoutBetDetailHistoryInput
     gameList: GameListCreateNestedOneWithoutBetDetailHistoryInput
   }
@@ -10597,7 +10597,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     ownerId: string
     gameId: number
   }
@@ -10609,7 +10609,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     owner?: UserUpdateOneRequiredWithoutBetDetailHistoryNestedInput
     gameList?: GameListUpdateOneRequiredWithoutBetDetailHistoryNestedInput
   }
@@ -10621,7 +10621,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
     gameId?: IntFieldUpdateOperationsInput | number
   }
@@ -10633,7 +10633,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     ownerId: string
     gameId: number
   }
@@ -10645,7 +10645,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BetDetailHistoryUncheckedUpdateManyInput = {
@@ -10655,7 +10655,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
     gameId?: IntFieldUpdateOperationsInput | number
   }
@@ -10894,7 +10894,7 @@ export namespace Prisma {
     name?: SortOrder
     active?: SortOrder
     token?: SortOrder
-    qauota?: SortOrder
+    quota?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accessToken?: SortOrder
@@ -10902,7 +10902,7 @@ export namespace Prisma {
   }
 
   export type AgentAvgOrderByAggregateInput = {
-    qauota?: SortOrder
+    quota?: SortOrder
   }
 
   export type AgentMaxOrderByAggregateInput = {
@@ -10912,7 +10912,7 @@ export namespace Prisma {
     name?: SortOrder
     active?: SortOrder
     token?: SortOrder
-    qauota?: SortOrder
+    quota?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accessToken?: SortOrder
@@ -10926,7 +10926,7 @@ export namespace Prisma {
     name?: SortOrder
     active?: SortOrder
     token?: SortOrder
-    qauota?: SortOrder
+    quota?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accessToken?: SortOrder
@@ -10934,7 +10934,7 @@ export namespace Prisma {
   }
 
   export type AgentSumOrderByAggregateInput = {
-    qauota?: SortOrder
+    quota?: SortOrder
   }
 
   export type BoolWithAggregatesFilter = {
@@ -12121,7 +12121,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -12136,7 +12136,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -12210,7 +12210,7 @@ export namespace Prisma {
     name?: StringFilter | string
     active?: BoolFilter | boolean
     token?: StringNullableFilter | string | null
-    qauota?: IntFilter | number
+    quota?: IntFilter | number
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
     accessToken?: StringNullableFilter | string | null
@@ -12254,10 +12254,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     balance?: BalanceCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryCreateNestedManyWithoutOwnerInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutOwnerInput
@@ -12271,10 +12271,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     balance?: BalanceUncheckedCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryUncheckedCreateNestedManyWithoutOwnerInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutOwnerInput
@@ -12376,10 +12376,10 @@ export namespace Prisma {
     password?: StringFilter | string
     headImage?: StringFilter | string
     active?: BoolFilter | boolean
-    token?: StringFilter | string
+    token?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    accessToken?: StringFilter | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
+    accessToken?: StringNullableFilter | string | null
     agentId?: UuidFilter | string
   }
 
@@ -12435,7 +12435,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -12450,7 +12450,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -12468,7 +12468,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type BalanceUncheckedCreateWithoutOwnerInput = {
@@ -12476,7 +12476,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type BalanceCreateOrConnectWithoutOwnerInput = {
@@ -12496,7 +12496,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     gameList: GameListCreateNestedOneWithoutBetDetailHistoryInput
   }
 
@@ -12507,7 +12507,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     gameId: number
   }
 
@@ -12528,7 +12528,7 @@ export namespace Prisma {
     newScore: number
     approval?: boolean
     createdAt?: Date | string
-    approvalAt?: Date | string
+    approvalAt?: Date | string | null
   }
 
   export type PaymentHistoryUncheckedCreateWithoutOwnerInput = {
@@ -12538,7 +12538,7 @@ export namespace Prisma {
     newScore: number
     approval?: boolean
     createdAt?: Date | string
-    approvalAt?: Date | string
+    approvalAt?: Date | string | null
   }
 
   export type PaymentHistoryCreateOrConnectWithoutOwnerInput = {
@@ -12593,7 +12593,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12608,7 +12608,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12640,7 +12640,7 @@ export namespace Prisma {
     type?: IntFilter | number
     balance?: IntFilter | number
     createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
     ownerId?: UuidFilter | string
   }
 
@@ -12670,7 +12670,7 @@ export namespace Prisma {
     winScore?: IntFilter | number
     newScore?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
-    updateAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeNullableFilter | Date | string | null
     ownerId?: UuidFilter | string
     gameId?: IntFilter | number
   }
@@ -12701,7 +12701,7 @@ export namespace Prisma {
     newScore?: IntFilter | number
     approval?: BoolFilter | boolean
     createdAt?: DateTimeFilter | Date | string
-    approvalAt?: DateTimeFilter | Date | string
+    approvalAt?: DateTimeNullableFilter | Date | string | null
     ownerId?: UuidFilter | string
   }
 
@@ -12728,10 +12728,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     createdByAgent: AgentCreateNestedOneWithoutUsersInput
     balance?: BalanceCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryCreateNestedManyWithoutOwnerInput
@@ -12745,10 +12745,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     agentId: string
     balance?: BalanceUncheckedCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryUncheckedCreateNestedManyWithoutOwnerInput
@@ -12767,7 +12767,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -12782,7 +12782,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -12836,10 +12836,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdByAgent?: AgentUpdateOneRequiredWithoutUsersNestedInput
     balance?: BalanceUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUpdateManyWithoutOwnerNestedInput
@@ -12853,10 +12853,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agentId?: StringFieldUpdateOperationsInput | string
     balance?: BalanceUncheckedUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -12875,7 +12875,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12890,7 +12890,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12934,10 +12934,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     createdByAgent: AgentCreateNestedOneWithoutUsersInput
     betDetailHistory?: BetDetailHistoryCreateNestedManyWithoutOwnerInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutOwnerInput
@@ -12951,10 +12951,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     agentId: string
     betDetailHistory?: BetDetailHistoryUncheckedCreateNestedManyWithoutOwnerInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutOwnerInput
@@ -12978,10 +12978,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdByAgent?: AgentUpdateOneRequiredWithoutUsersNestedInput
     betDetailHistory?: BetDetailHistoryUpdateManyWithoutOwnerNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutOwnerNestedInput
@@ -12995,10 +12995,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agentId?: StringFieldUpdateOperationsInput | string
     betDetailHistory?: BetDetailHistoryUncheckedUpdateManyWithoutOwnerNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -13012,7 +13012,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     owner: UserCreateNestedOneWithoutBetDetailHistoryInput
   }
 
@@ -13023,7 +13023,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     ownerId: string
   }
 
@@ -13060,10 +13060,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     createdByAgent: AgentCreateNestedOneWithoutUsersInput
     balance?: BalanceCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryCreateNestedManyWithoutOwnerInput
@@ -13077,10 +13077,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     agentId: string
     balance?: BalanceUncheckedCreateNestedManyWithoutOwnerInput
     betDetailHistory?: BetDetailHistoryUncheckedCreateNestedManyWithoutOwnerInput
@@ -13104,10 +13104,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdByAgent?: AgentUpdateOneRequiredWithoutUsersNestedInput
     balance?: BalanceUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUpdateManyWithoutOwnerNestedInput
@@ -13121,10 +13121,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agentId?: StringFieldUpdateOperationsInput | string
     balance?: BalanceUncheckedUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -13138,10 +13138,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     createdByAgent: AgentCreateNestedOneWithoutUsersInput
     balance?: BalanceCreateNestedManyWithoutOwnerInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutOwnerInput
@@ -13155,10 +13155,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
     agentId: string
     balance?: BalanceUncheckedCreateNestedManyWithoutOwnerInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutOwnerInput
@@ -13205,10 +13205,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdByAgent?: AgentUpdateOneRequiredWithoutUsersNestedInput
     balance?: BalanceUpdateManyWithoutOwnerNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutOwnerNestedInput
@@ -13222,10 +13222,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agentId?: StringFieldUpdateOperationsInput | string
     balance?: BalanceUncheckedUpdateManyWithoutOwnerNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -13262,7 +13262,7 @@ export namespace Prisma {
     name: string
     active?: boolean
     token?: string | null
-    qauota?: number
+    quota?: number
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
@@ -13285,7 +13285,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13300,7 +13300,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13315,7 +13315,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
-    qauota?: IntFieldUpdateOperationsInput | number
+    quota?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13358,10 +13358,10 @@ export namespace Prisma {
     password: string
     headImage: string
     active?: boolean
-    token: string
+    token?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    accessToken: string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
   }
 
   export type ActionHistoryCreateManyAgentInput = {
@@ -13381,10 +13381,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: BalanceUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUpdateManyWithoutOwnerNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutOwnerNestedInput
@@ -13398,10 +13398,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: BalanceUncheckedUpdateManyWithoutOwnerNestedInput
     betDetailHistory?: BetDetailHistoryUncheckedUpdateManyWithoutOwnerNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -13415,10 +13415,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accessToken?: StringFieldUpdateOperationsInput | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ActionHistoryUpdateWithoutAgentInput = {
@@ -13446,7 +13446,7 @@ export namespace Prisma {
     type: number
     balance: number
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type BetDetailHistoryCreateManyOwnerInput = {
@@ -13456,7 +13456,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     gameId: number
   }
 
@@ -13467,7 +13467,7 @@ export namespace Prisma {
     newScore: number
     approval?: boolean
     createdAt?: Date | string
-    approvalAt?: Date | string
+    approvalAt?: Date | string | null
   }
 
   export type ActionHistoryCreateManyUserInput = {
@@ -13485,7 +13485,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BalanceUncheckedUpdateWithoutOwnerInput = {
@@ -13493,7 +13493,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BalanceUncheckedUpdateManyWithoutBalanceInput = {
@@ -13501,7 +13501,7 @@ export namespace Prisma {
     type?: IntFieldUpdateOperationsInput | number
     balance?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BetDetailHistoryUpdateWithoutOwnerInput = {
@@ -13511,7 +13511,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gameList?: GameListUpdateOneRequiredWithoutBetDetailHistoryNestedInput
   }
 
@@ -13522,7 +13522,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gameId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -13533,7 +13533,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gameId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -13544,7 +13544,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PaymentHistoryUncheckedUpdateWithoutOwnerInput = {
@@ -13554,7 +13554,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PaymentHistoryUncheckedUpdateManyWithoutPaymentHistoryInput = {
@@ -13564,7 +13564,7 @@ export namespace Prisma {
     newScore?: IntFieldUpdateOperationsInput | number
     approval?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    approvalAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ActionHistoryUpdateWithoutUserInput = {
@@ -13594,7 +13594,7 @@ export namespace Prisma {
     winScore: number
     newScore: number
     createAt?: Date | string
-    updateAt?: Date | string
+    updateAt?: Date | string | null
     ownerId: string
   }
 
@@ -13605,7 +13605,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     owner?: UserUpdateOneRequiredWithoutBetDetailHistoryNestedInput
   }
 
@@ -13616,7 +13616,7 @@ export namespace Prisma {
     winScore?: IntFieldUpdateOperationsInput | number
     newScore?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
   }
 

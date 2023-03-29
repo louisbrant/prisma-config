@@ -118,7 +118,7 @@ exports.Prisma.AgentScalarFieldEnum = makeEnum({
   name: 'name',
   active: 'active',
   token: 'token',
-  qauota: 'qauota',
+  quota: 'quota',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   accessToken: 'accessToken',

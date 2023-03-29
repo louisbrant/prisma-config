@@ -28,7 +28,7 @@ model Agent {
     name        String          @db.VarChar(30)
     active      Boolean         @default(true)
     token       String?         @db.VarChar(100)
-    qauota      Int             @default(0)
+    quota       Int             @default(0)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
@@ -45,10 +45,10 @@ model User {
     password         String             @db.VarChar(100)
     headImage        String             @db.VarChar(100)
     active           Boolean            @default(true)
-    token            String             @db.VarChar(100)
+    token            String?            @db.VarChar(100)
     createdAt        DateTime           @default(now())
-    updatedAt        DateTime           @updatedAt
-    accessToken      String             @db.VarChar(100)
+    updatedAt        DateTime?          @updatedAt
+    accessToken      String?            @db.VarChar(100)
     agentId          String             @db.Uuid
     createdByAgent   Agent              @relation(fields: [agentId], references: [id], onUpdate: Cascade)
     balance          Balance[]
@@ -72,13 +72,13 @@ model ActionHistory {
 }
 
 model Balance {
-    id        String   @id @default(uuid()) @db.Uuid
+    id        String    @id @default(uuid()) @db.Uuid
     type      Int
     balance   Int
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    ownerId   String   @db.Uuid
-    owner     User     @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    ownerId   String    @db.Uuid
+    owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
 }
 
 model GameList {
@@ -92,27 +92,27 @@ model GameList {
 }
 
 model PaymentHistory {
-    id          String   @id @default(uuid()) @db.Uuid
+    id          String    @id @default(uuid()) @db.Uuid
     beforeScore Int
     changeScore Int
     newScore    Int
-    approval    Boolean  @default(false)
-    createdAt   DateTime @default(now())
-    approvalAt  DateTime @updatedAt
-    ownerId     String   @db.Uuid
-    owner       User     @relation(fields: [ownerId], references: [id], onUpdate: Cascade, map: "history")
+    approval    Boolean   @default(false)
+    createdAt   DateTime  @default(now())
+    approvalAt  DateTime? @updatedAt
+    ownerId     String    @db.Uuid
+    owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade, map: "history")
 }
 
 model BetDetailHistory {
-    id          String   @id @default(uuid()) @db.Uuid
+    id          String    @id @default(uuid()) @db.Uuid
     beforeScore Int
     betScore    Int
     winScore    Int
     newScore    Int
-    createAt    DateTime @default(now())
-    updateAt    DateTime @updatedAt
-    ownerId     String   @db.Uuid
+    createAt    DateTime  @default(now())
+    updateAt    DateTime? @updatedAt
+    ownerId     String    @db.Uuid
     gameId      Int
-    owner       User     @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
-    gameList    GameList @relation(fields: [gameId], references: [id], onUpdate: Cascade)
+    owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
+    gameList    GameList  @relation(fields: [gameId], references: [id], onUpdate: Cascade)
 }
