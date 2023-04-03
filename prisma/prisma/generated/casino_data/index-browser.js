@@ -161,6 +161,14 @@ exports.Prisma.JsonNullValueFilter = makeEnum({
   AnyNull: Prisma.AnyNull
 });
 
+exports.Prisma.NoticeListScalarFieldEnum = makeEnum({
+  id: 'id',
+  msg: 'msg',
+  createdAt: 'createdAt',
+  updateAt: 'updateAt',
+  adminId: 'adminId'
+});
+
 exports.Prisma.NullableJsonNullValueInput = makeEnum({
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
@@ -217,7 +225,8 @@ exports.Prisma.ModelName = makeEnum({
   Balance: 'Balance',
   GameList: 'GameList',
   PaymentHistory: 'PaymentHistory',
-  BetDetailHistory: 'BetDetailHistory'
+  BetDetailHistory: 'BetDetailHistory',
+  NoticeList: 'NoticeList'
 });
 
 /**

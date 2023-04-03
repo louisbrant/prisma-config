@@ -133,6 +133,18 @@ export type BetDetailHistory = {
   gameId: number
 }
 
+/**
+ * Model NoticeList
+ * 
+ */
+export type NoticeList = {
+  id: string
+  msg: string
+  createdAt: Date
+  updateAt: Date | null
+  adminId: string
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -330,6 +342,16 @@ export class PrismaClient<
     * ```
     */
   get betDetailHistory(): Prisma.BetDetailHistoryDelegate<GlobalReject>;
+
+  /**
+   * `prisma.noticeList`: Exposes CRUD operations for the **NoticeList** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NoticeLists
+    * const noticeLists = await prisma.noticeList.findMany()
+    * ```
+    */
+  get noticeList(): Prisma.NoticeListDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -806,7 +828,8 @@ export namespace Prisma {
     Balance: 'Balance',
     GameList: 'GameList',
     PaymentHistory: 'PaymentHistory',
-    BetDetailHistory: 'BetDetailHistory'
+    BetDetailHistory: 'BetDetailHistory',
+    NoticeList: 'NoticeList'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -974,11 +997,13 @@ export namespace Prisma {
 
   export type AdminCountOutputType = {
     agent: number
+    noticelist: number
     history: number
   }
 
   export type AdminCountOutputTypeSelect = {
     agent?: boolean
+    noticelist?: boolean
     history?: boolean
   }
 
@@ -1344,6 +1369,7 @@ export namespace Prisma {
     updatedAt?: boolean
     accessToken?: boolean
     agent?: boolean | Admin$agentArgs
+    noticelist?: boolean | Admin$noticelistArgs
     history?: boolean | Admin$historyArgs
     _count?: boolean | AdminCountOutputTypeArgs
   }
@@ -1351,6 +1377,7 @@ export namespace Prisma {
 
   export type AdminInclude = {
     agent?: boolean | Admin$agentArgs
+    noticelist?: boolean | Admin$noticelistArgs
     history?: boolean | Admin$historyArgs
     _count?: boolean | AdminCountOutputTypeArgs
   }
@@ -1363,6 +1390,7 @@ export namespace Prisma {
     ? Admin  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'agent' ? Array < AgentGetPayload<S['include'][P]>>  :
+        P extends 'noticelist' ? Array < NoticeListGetPayload<S['include'][P]>>  :
         P extends 'history' ? Array < ActionHistoryGetPayload<S['include'][P]>>  :
         P extends '_count' ? AdminCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
@@ -1370,6 +1398,7 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'agent' ? Array < AgentGetPayload<S['select'][P]>>  :
+        P extends 'noticelist' ? Array < NoticeListGetPayload<S['select'][P]>>  :
         P extends 'history' ? Array < ActionHistoryGetPayload<S['select'][P]>>  :
         P extends '_count' ? AdminCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Admin ? Admin[P] : never
   } 
@@ -1744,6 +1773,8 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
     agent<T extends Admin$agentArgs= {}>(args?: Subset<T, Admin$agentArgs>): Prisma.PrismaPromise<Array<AgentGetPayload<T>>| Null>;
+
+    noticelist<T extends Admin$noticelistArgs= {}>(args?: Subset<T, Admin$noticelistArgs>): Prisma.PrismaPromise<Array<NoticeListGetPayload<T>>| Null>;
 
     history<T extends Admin$historyArgs= {}>(args?: Subset<T, Admin$historyArgs>): Prisma.PrismaPromise<Array<ActionHistoryGetPayload<T>>| Null>;
 
@@ -2120,6 +2151,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<AgentScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.noticelist
+   */
+  export type Admin$noticelistArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    where?: NoticeListWhereInput
+    orderBy?: Enumerable<NoticeListOrderByWithRelationInput>
+    cursor?: NoticeListWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<NoticeListScalarFieldEnum>
   }
 
 
@@ -9311,6 +9363,937 @@ export namespace Prisma {
 
 
   /**
+   * Model NoticeList
+   */
+
+
+  export type AggregateNoticeList = {
+    _count: NoticeListCountAggregateOutputType | null
+    _min: NoticeListMinAggregateOutputType | null
+    _max: NoticeListMaxAggregateOutputType | null
+  }
+
+  export type NoticeListMinAggregateOutputType = {
+    id: string | null
+    msg: string | null
+    createdAt: Date | null
+    updateAt: Date | null
+    adminId: string | null
+  }
+
+  export type NoticeListMaxAggregateOutputType = {
+    id: string | null
+    msg: string | null
+    createdAt: Date | null
+    updateAt: Date | null
+    adminId: string | null
+  }
+
+  export type NoticeListCountAggregateOutputType = {
+    id: number
+    msg: number
+    createdAt: number
+    updateAt: number
+    adminId: number
+    _all: number
+  }
+
+
+  export type NoticeListMinAggregateInputType = {
+    id?: true
+    msg?: true
+    createdAt?: true
+    updateAt?: true
+    adminId?: true
+  }
+
+  export type NoticeListMaxAggregateInputType = {
+    id?: true
+    msg?: true
+    createdAt?: true
+    updateAt?: true
+    adminId?: true
+  }
+
+  export type NoticeListCountAggregateInputType = {
+    id?: true
+    msg?: true
+    createdAt?: true
+    updateAt?: true
+    adminId?: true
+    _all?: true
+  }
+
+  export type NoticeListAggregateArgs = {
+    /**
+     * Filter which NoticeList to aggregate.
+     */
+    where?: NoticeListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NoticeLists to fetch.
+     */
+    orderBy?: Enumerable<NoticeListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NoticeListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NoticeLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NoticeLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NoticeLists
+    **/
+    _count?: true | NoticeListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NoticeListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NoticeListMaxAggregateInputType
+  }
+
+  export type GetNoticeListAggregateType<T extends NoticeListAggregateArgs> = {
+        [P in keyof T & keyof AggregateNoticeList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNoticeList[P]>
+      : GetScalarType<T[P], AggregateNoticeList[P]>
+  }
+
+
+
+
+  export type NoticeListGroupByArgs = {
+    where?: NoticeListWhereInput
+    orderBy?: Enumerable<NoticeListOrderByWithAggregationInput>
+    by: NoticeListScalarFieldEnum[]
+    having?: NoticeListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NoticeListCountAggregateInputType | true
+    _min?: NoticeListMinAggregateInputType
+    _max?: NoticeListMaxAggregateInputType
+  }
+
+
+  export type NoticeListGroupByOutputType = {
+    id: string
+    msg: string
+    createdAt: Date
+    updateAt: Date | null
+    adminId: string
+    _count: NoticeListCountAggregateOutputType | null
+    _min: NoticeListMinAggregateOutputType | null
+    _max: NoticeListMaxAggregateOutputType | null
+  }
+
+  type GetNoticeListGroupByPayload<T extends NoticeListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<NoticeListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NoticeListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NoticeListGroupByOutputType[P]>
+            : GetScalarType<T[P], NoticeListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NoticeListSelect = {
+    id?: boolean
+    msg?: boolean
+    createdAt?: boolean
+    updateAt?: boolean
+    adminId?: boolean
+    createdBy?: boolean | AdminArgs
+  }
+
+
+  export type NoticeListInclude = {
+    createdBy?: boolean | AdminArgs
+  }
+
+  export type NoticeListGetPayload<S extends boolean | null | undefined | NoticeListArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? NoticeList :
+    S extends undefined ? never :
+    S extends { include: any } & (NoticeListArgs | NoticeListFindManyArgs)
+    ? NoticeList  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'createdBy' ? AdminGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (NoticeListArgs | NoticeListFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'createdBy' ? AdminGetPayload<S['select'][P]> :  P extends keyof NoticeList ? NoticeList[P] : never
+  } 
+      : NoticeList
+
+
+  type NoticeListCountArgs = 
+    Omit<NoticeListFindManyArgs, 'select' | 'include'> & {
+      select?: NoticeListCountAggregateInputType | true
+    }
+
+  export interface NoticeListDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one NoticeList that matches the filter.
+     * @param {NoticeListFindUniqueArgs} args - Arguments to find a NoticeList
+     * @example
+     * // Get one NoticeList
+     * const noticeList = await prisma.noticeList.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends NoticeListFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, NoticeListFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'NoticeList'> extends True ? Prisma__NoticeListClient<NoticeListGetPayload<T>> : Prisma__NoticeListClient<NoticeListGetPayload<T> | null, null>
+
+    /**
+     * Find one NoticeList that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {NoticeListFindUniqueOrThrowArgs} args - Arguments to find a NoticeList
+     * @example
+     * // Get one NoticeList
+     * const noticeList = await prisma.noticeList.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends NoticeListFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, NoticeListFindUniqueOrThrowArgs>
+    ): Prisma__NoticeListClient<NoticeListGetPayload<T>>
+
+    /**
+     * Find the first NoticeList that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListFindFirstArgs} args - Arguments to find a NoticeList
+     * @example
+     * // Get one NoticeList
+     * const noticeList = await prisma.noticeList.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends NoticeListFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, NoticeListFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'NoticeList'> extends True ? Prisma__NoticeListClient<NoticeListGetPayload<T>> : Prisma__NoticeListClient<NoticeListGetPayload<T> | null, null>
+
+    /**
+     * Find the first NoticeList that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListFindFirstOrThrowArgs} args - Arguments to find a NoticeList
+     * @example
+     * // Get one NoticeList
+     * const noticeList = await prisma.noticeList.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends NoticeListFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, NoticeListFindFirstOrThrowArgs>
+    ): Prisma__NoticeListClient<NoticeListGetPayload<T>>
+
+    /**
+     * Find zero or more NoticeLists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NoticeLists
+     * const noticeLists = await prisma.noticeList.findMany()
+     * 
+     * // Get first 10 NoticeLists
+     * const noticeLists = await prisma.noticeList.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const noticeListWithIdOnly = await prisma.noticeList.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends NoticeListFindManyArgs>(
+      args?: SelectSubset<T, NoticeListFindManyArgs>
+    ): Prisma.PrismaPromise<Array<NoticeListGetPayload<T>>>
+
+    /**
+     * Create a NoticeList.
+     * @param {NoticeListCreateArgs} args - Arguments to create a NoticeList.
+     * @example
+     * // Create one NoticeList
+     * const NoticeList = await prisma.noticeList.create({
+     *   data: {
+     *     // ... data to create a NoticeList
+     *   }
+     * })
+     * 
+    **/
+    create<T extends NoticeListCreateArgs>(
+      args: SelectSubset<T, NoticeListCreateArgs>
+    ): Prisma__NoticeListClient<NoticeListGetPayload<T>>
+
+    /**
+     * Create many NoticeLists.
+     *     @param {NoticeListCreateManyArgs} args - Arguments to create many NoticeLists.
+     *     @example
+     *     // Create many NoticeLists
+     *     const noticeList = await prisma.noticeList.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends NoticeListCreateManyArgs>(
+      args?: SelectSubset<T, NoticeListCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NoticeList.
+     * @param {NoticeListDeleteArgs} args - Arguments to delete one NoticeList.
+     * @example
+     * // Delete one NoticeList
+     * const NoticeList = await prisma.noticeList.delete({
+     *   where: {
+     *     // ... filter to delete one NoticeList
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends NoticeListDeleteArgs>(
+      args: SelectSubset<T, NoticeListDeleteArgs>
+    ): Prisma__NoticeListClient<NoticeListGetPayload<T>>
+
+    /**
+     * Update one NoticeList.
+     * @param {NoticeListUpdateArgs} args - Arguments to update one NoticeList.
+     * @example
+     * // Update one NoticeList
+     * const noticeList = await prisma.noticeList.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends NoticeListUpdateArgs>(
+      args: SelectSubset<T, NoticeListUpdateArgs>
+    ): Prisma__NoticeListClient<NoticeListGetPayload<T>>
+
+    /**
+     * Delete zero or more NoticeLists.
+     * @param {NoticeListDeleteManyArgs} args - Arguments to filter NoticeLists to delete.
+     * @example
+     * // Delete a few NoticeLists
+     * const { count } = await prisma.noticeList.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends NoticeListDeleteManyArgs>(
+      args?: SelectSubset<T, NoticeListDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NoticeLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NoticeLists
+     * const noticeList = await prisma.noticeList.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends NoticeListUpdateManyArgs>(
+      args: SelectSubset<T, NoticeListUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NoticeList.
+     * @param {NoticeListUpsertArgs} args - Arguments to update or create a NoticeList.
+     * @example
+     * // Update or create a NoticeList
+     * const noticeList = await prisma.noticeList.upsert({
+     *   create: {
+     *     // ... data to create a NoticeList
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NoticeList we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends NoticeListUpsertArgs>(
+      args: SelectSubset<T, NoticeListUpsertArgs>
+    ): Prisma__NoticeListClient<NoticeListGetPayload<T>>
+
+    /**
+     * Count the number of NoticeLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListCountArgs} args - Arguments to filter NoticeLists to count.
+     * @example
+     * // Count the number of NoticeLists
+     * const count = await prisma.noticeList.count({
+     *   where: {
+     *     // ... the filter for the NoticeLists we want to count
+     *   }
+     * })
+    **/
+    count<T extends NoticeListCountArgs>(
+      args?: Subset<T, NoticeListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NoticeListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NoticeList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NoticeListAggregateArgs>(args: Subset<T, NoticeListAggregateArgs>): Prisma.PrismaPromise<GetNoticeListAggregateType<T>>
+
+    /**
+     * Group by NoticeList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NoticeListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NoticeListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NoticeListGroupByArgs['orderBy'] }
+        : { orderBy?: NoticeListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NoticeListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNoticeListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NoticeList.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__NoticeListClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    createdBy<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * NoticeList base type for findUnique actions
+   */
+  export type NoticeListFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * Filter, which NoticeList to fetch.
+     */
+    where: NoticeListWhereUniqueInput
+  }
+
+  /**
+   * NoticeList findUnique
+   */
+  export interface NoticeListFindUniqueArgs extends NoticeListFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * NoticeList findUniqueOrThrow
+   */
+  export type NoticeListFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * Filter, which NoticeList to fetch.
+     */
+    where: NoticeListWhereUniqueInput
+  }
+
+
+  /**
+   * NoticeList base type for findFirst actions
+   */
+  export type NoticeListFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * Filter, which NoticeList to fetch.
+     */
+    where?: NoticeListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NoticeLists to fetch.
+     */
+    orderBy?: Enumerable<NoticeListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NoticeLists.
+     */
+    cursor?: NoticeListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NoticeLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NoticeLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NoticeLists.
+     */
+    distinct?: Enumerable<NoticeListScalarFieldEnum>
+  }
+
+  /**
+   * NoticeList findFirst
+   */
+  export interface NoticeListFindFirstArgs extends NoticeListFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * NoticeList findFirstOrThrow
+   */
+  export type NoticeListFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * Filter, which NoticeList to fetch.
+     */
+    where?: NoticeListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NoticeLists to fetch.
+     */
+    orderBy?: Enumerable<NoticeListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NoticeLists.
+     */
+    cursor?: NoticeListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NoticeLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NoticeLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NoticeLists.
+     */
+    distinct?: Enumerable<NoticeListScalarFieldEnum>
+  }
+
+
+  /**
+   * NoticeList findMany
+   */
+  export type NoticeListFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * Filter, which NoticeLists to fetch.
+     */
+    where?: NoticeListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NoticeLists to fetch.
+     */
+    orderBy?: Enumerable<NoticeListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NoticeLists.
+     */
+    cursor?: NoticeListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NoticeLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NoticeLists.
+     */
+    skip?: number
+    distinct?: Enumerable<NoticeListScalarFieldEnum>
+  }
+
+
+  /**
+   * NoticeList create
+   */
+  export type NoticeListCreateArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * The data needed to create a NoticeList.
+     */
+    data: XOR<NoticeListCreateInput, NoticeListUncheckedCreateInput>
+  }
+
+
+  /**
+   * NoticeList createMany
+   */
+  export type NoticeListCreateManyArgs = {
+    /**
+     * The data used to create many NoticeLists.
+     */
+    data: Enumerable<NoticeListCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * NoticeList update
+   */
+  export type NoticeListUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * The data needed to update a NoticeList.
+     */
+    data: XOR<NoticeListUpdateInput, NoticeListUncheckedUpdateInput>
+    /**
+     * Choose, which NoticeList to update.
+     */
+    where: NoticeListWhereUniqueInput
+  }
+
+
+  /**
+   * NoticeList updateMany
+   */
+  export type NoticeListUpdateManyArgs = {
+    /**
+     * The data used to update NoticeLists.
+     */
+    data: XOR<NoticeListUpdateManyMutationInput, NoticeListUncheckedUpdateManyInput>
+    /**
+     * Filter which NoticeLists to update
+     */
+    where?: NoticeListWhereInput
+  }
+
+
+  /**
+   * NoticeList upsert
+   */
+  export type NoticeListUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * The filter to search for the NoticeList to update in case it exists.
+     */
+    where: NoticeListWhereUniqueInput
+    /**
+     * In case the NoticeList found by the `where` argument doesn't exist, create a new NoticeList with this data.
+     */
+    create: XOR<NoticeListCreateInput, NoticeListUncheckedCreateInput>
+    /**
+     * In case the NoticeList was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NoticeListUpdateInput, NoticeListUncheckedUpdateInput>
+  }
+
+
+  /**
+   * NoticeList delete
+   */
+  export type NoticeListDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+    /**
+     * Filter which NoticeList to delete.
+     */
+    where: NoticeListWhereUniqueInput
+  }
+
+
+  /**
+   * NoticeList deleteMany
+   */
+  export type NoticeListDeleteManyArgs = {
+    /**
+     * Filter which NoticeLists to delete
+     */
+    where?: NoticeListWhereInput
+  }
+
+
+  /**
+   * NoticeList without action
+   */
+  export type NoticeListArgs = {
+    /**
+     * Select specific fields to fetch from the NoticeList
+     */
+    select?: NoticeListSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NoticeListInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -9410,6 +10393,17 @@ export namespace Prisma {
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
+  export const NoticeListScalarFieldEnum: {
+    id: 'id',
+    msg: 'msg',
+    createdAt: 'createdAt',
+    updateAt: 'updateAt',
+    adminId: 'adminId'
+  };
+
+  export type NoticeListScalarFieldEnum = (typeof NoticeListScalarFieldEnum)[keyof typeof NoticeListScalarFieldEnum]
+
+
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
@@ -9493,6 +10487,7 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter | Date | string | null
     accessToken?: StringNullableFilter | string | null
     agent?: AgentListRelationFilter
+    noticelist?: NoticeListListRelationFilter
     history?: ActionHistoryListRelationFilter
   }
 
@@ -9506,6 +10501,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     accessToken?: SortOrder
     agent?: AgentOrderByRelationAggregateInput
+    noticelist?: NoticeListOrderByRelationAggregateInput
     history?: ActionHistoryOrderByRelationAggregateInput
   }
 
@@ -9996,6 +10992,53 @@ export namespace Prisma {
     gameId?: IntWithAggregatesFilter | number
   }
 
+  export type NoticeListWhereInput = {
+    AND?: Enumerable<NoticeListWhereInput>
+    OR?: Enumerable<NoticeListWhereInput>
+    NOT?: Enumerable<NoticeListWhereInput>
+    id?: UuidFilter | string
+    msg?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeNullableFilter | Date | string | null
+    adminId?: UuidFilter | string
+    createdBy?: XOR<AdminRelationFilter, AdminWhereInput>
+  }
+
+  export type NoticeListOrderByWithRelationInput = {
+    id?: SortOrder
+    msg?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
+    adminId?: SortOrder
+    createdBy?: AdminOrderByWithRelationInput
+  }
+
+  export type NoticeListWhereUniqueInput = {
+    id?: string
+  }
+
+  export type NoticeListOrderByWithAggregationInput = {
+    id?: SortOrder
+    msg?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
+    adminId?: SortOrder
+    _count?: NoticeListCountOrderByAggregateInput
+    _max?: NoticeListMaxOrderByAggregateInput
+    _min?: NoticeListMinOrderByAggregateInput
+  }
+
+  export type NoticeListScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<NoticeListScalarWhereWithAggregatesInput>
+    OR?: Enumerable<NoticeListScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<NoticeListScalarWhereWithAggregatesInput>
+    id?: UuidWithAggregatesFilter | string
+    msg?: StringWithAggregatesFilter | string
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updateAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    adminId?: UuidWithAggregatesFilter | string
+  }
+
   export type AdminCreateInput = {
     id?: string
     email: string
@@ -10006,6 +11049,7 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     accessToken?: string | null
     agent?: AgentCreateNestedManyWithoutCreatedByInput
+    noticelist?: NoticeListCreateNestedManyWithoutCreatedByInput
     history?: ActionHistoryCreateNestedManyWithoutAdminInput
   }
 
@@ -10019,6 +11063,7 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     accessToken?: string | null
     agent?: AgentUncheckedCreateNestedManyWithoutCreatedByInput
+    noticelist?: NoticeListUncheckedCreateNestedManyWithoutCreatedByInput
     history?: ActionHistoryUncheckedCreateNestedManyWithoutAdminInput
   }
 
@@ -10032,6 +11077,7 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agent?: AgentUpdateManyWithoutCreatedByNestedInput
+    noticelist?: NoticeListUpdateManyWithoutCreatedByNestedInput
     history?: ActionHistoryUpdateManyWithoutAdminNestedInput
   }
 
@@ -10045,6 +11091,7 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agent?: AgentUncheckedUpdateManyWithoutCreatedByNestedInput
+    noticelist?: NoticeListUncheckedUpdateManyWithoutCreatedByNestedInput
     history?: ActionHistoryUncheckedUpdateManyWithoutAdminNestedInput
   }
 
@@ -10660,6 +11707,61 @@ export namespace Prisma {
     gameId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type NoticeListCreateInput = {
+    id?: string
+    msg: string
+    createdAt?: Date | string
+    updateAt?: Date | string | null
+    createdBy: AdminCreateNestedOneWithoutNoticelistInput
+  }
+
+  export type NoticeListUncheckedCreateInput = {
+    id?: string
+    msg: string
+    createdAt?: Date | string
+    updateAt?: Date | string | null
+    adminId: string
+  }
+
+  export type NoticeListUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: AdminUpdateOneRequiredWithoutNoticelistNestedInput
+  }
+
+  export type NoticeListUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type NoticeListCreateManyInput = {
+    id?: string
+    msg: string
+    createdAt?: Date | string
+    updateAt?: Date | string | null
+    adminId: string
+  }
+
+  export type NoticeListUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NoticeListUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UuidFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -10730,6 +11832,12 @@ export namespace Prisma {
     none?: AgentWhereInput
   }
 
+  export type NoticeListListRelationFilter = {
+    every?: NoticeListWhereInput
+    some?: NoticeListWhereInput
+    none?: NoticeListWhereInput
+  }
+
   export type ActionHistoryListRelationFilter = {
     every?: ActionHistoryWhereInput
     some?: ActionHistoryWhereInput
@@ -10737,6 +11845,10 @@ export namespace Prisma {
   }
 
   export type AgentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NoticeListOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10879,8 +11991,8 @@ export namespace Prisma {
   }
 
   export type AdminRelationFilter = {
-    is?: AdminWhereInput | null
-    isNot?: AdminWhereInput | null
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
   }
 
   export type UserOrderByRelationAggregateInput = {
@@ -11330,11 +12442,42 @@ export namespace Prisma {
     gameId?: SortOrder
   }
 
+  export type NoticeListCountOrderByAggregateInput = {
+    id?: SortOrder
+    msg?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
+    adminId?: SortOrder
+  }
+
+  export type NoticeListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    msg?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
+    adminId?: SortOrder
+  }
+
+  export type NoticeListMinOrderByAggregateInput = {
+    id?: SortOrder
+    msg?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
+    adminId?: SortOrder
+  }
+
   export type AgentCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<Enumerable<AgentCreateWithoutCreatedByInput>, Enumerable<AgentUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AgentCreateOrConnectWithoutCreatedByInput>
     createMany?: AgentCreateManyCreatedByInputEnvelope
     connect?: Enumerable<AgentWhereUniqueInput>
+  }
+
+  export type NoticeListCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<Enumerable<NoticeListCreateWithoutCreatedByInput>, Enumerable<NoticeListUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<NoticeListCreateOrConnectWithoutCreatedByInput>
+    createMany?: NoticeListCreateManyCreatedByInputEnvelope
+    connect?: Enumerable<NoticeListWhereUniqueInput>
   }
 
   export type ActionHistoryCreateNestedManyWithoutAdminInput = {
@@ -11349,6 +12492,13 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<AgentCreateOrConnectWithoutCreatedByInput>
     createMany?: AgentCreateManyCreatedByInputEnvelope
     connect?: Enumerable<AgentWhereUniqueInput>
+  }
+
+  export type NoticeListUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<Enumerable<NoticeListCreateWithoutCreatedByInput>, Enumerable<NoticeListUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<NoticeListCreateOrConnectWithoutCreatedByInput>
+    createMany?: NoticeListCreateManyCreatedByInputEnvelope
+    connect?: Enumerable<NoticeListWhereUniqueInput>
   }
 
   export type ActionHistoryUncheckedCreateNestedManyWithoutAdminInput = {
@@ -11388,6 +12538,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<AgentScalarWhereInput>
   }
 
+  export type NoticeListUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<Enumerable<NoticeListCreateWithoutCreatedByInput>, Enumerable<NoticeListUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<NoticeListCreateOrConnectWithoutCreatedByInput>
+    upsert?: Enumerable<NoticeListUpsertWithWhereUniqueWithoutCreatedByInput>
+    createMany?: NoticeListCreateManyCreatedByInputEnvelope
+    set?: Enumerable<NoticeListWhereUniqueInput>
+    disconnect?: Enumerable<NoticeListWhereUniqueInput>
+    delete?: Enumerable<NoticeListWhereUniqueInput>
+    connect?: Enumerable<NoticeListWhereUniqueInput>
+    update?: Enumerable<NoticeListUpdateWithWhereUniqueWithoutCreatedByInput>
+    updateMany?: Enumerable<NoticeListUpdateManyWithWhereWithoutCreatedByInput>
+    deleteMany?: Enumerable<NoticeListScalarWhereInput>
+  }
+
   export type ActionHistoryUpdateManyWithoutAdminNestedInput = {
     create?: XOR<Enumerable<ActionHistoryCreateWithoutAdminInput>, Enumerable<ActionHistoryUncheckedCreateWithoutAdminInput>>
     connectOrCreate?: Enumerable<ActionHistoryCreateOrConnectWithoutAdminInput>
@@ -11414,6 +12578,20 @@ export namespace Prisma {
     update?: Enumerable<AgentUpdateWithWhereUniqueWithoutCreatedByInput>
     updateMany?: Enumerable<AgentUpdateManyWithWhereWithoutCreatedByInput>
     deleteMany?: Enumerable<AgentScalarWhereInput>
+  }
+
+  export type NoticeListUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<Enumerable<NoticeListCreateWithoutCreatedByInput>, Enumerable<NoticeListUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<NoticeListCreateOrConnectWithoutCreatedByInput>
+    upsert?: Enumerable<NoticeListUpsertWithWhereUniqueWithoutCreatedByInput>
+    createMany?: NoticeListCreateManyCreatedByInputEnvelope
+    set?: Enumerable<NoticeListWhereUniqueInput>
+    disconnect?: Enumerable<NoticeListWhereUniqueInput>
+    delete?: Enumerable<NoticeListWhereUniqueInput>
+    connect?: Enumerable<NoticeListWhereUniqueInput>
+    update?: Enumerable<NoticeListUpdateWithWhereUniqueWithoutCreatedByInput>
+    updateMany?: Enumerable<NoticeListUpdateManyWithWhereWithoutCreatedByInput>
+    deleteMany?: Enumerable<NoticeListScalarWhereInput>
   }
 
   export type ActionHistoryUncheckedUpdateManyWithoutAdminNestedInput = {
@@ -11868,6 +13046,20 @@ export namespace Prisma {
     update?: XOR<GameListUpdateWithoutBetDetailHistoryInput, GameListUncheckedUpdateWithoutBetDetailHistoryInput>
   }
 
+  export type AdminCreateNestedOneWithoutNoticelistInput = {
+    create?: XOR<AdminCreateWithoutNoticelistInput, AdminUncheckedCreateWithoutNoticelistInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutNoticelistInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type AdminUpdateOneRequiredWithoutNoticelistNestedInput = {
+    create?: XOR<AdminCreateWithoutNoticelistInput, AdminUncheckedCreateWithoutNoticelistInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutNoticelistInput
+    upsert?: AdminUpsertWithoutNoticelistInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutNoticelistInput, AdminUncheckedUpdateWithoutNoticelistInput>
+  }
+
   export type NestedUuidFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -12154,6 +13346,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NoticeListCreateWithoutCreatedByInput = {
+    id?: string
+    msg: string
+    createdAt?: Date | string
+    updateAt?: Date | string | null
+  }
+
+  export type NoticeListUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    msg: string
+    createdAt?: Date | string
+    updateAt?: Date | string | null
+  }
+
+  export type NoticeListCreateOrConnectWithoutCreatedByInput = {
+    where: NoticeListWhereUniqueInput
+    create: XOR<NoticeListCreateWithoutCreatedByInput, NoticeListUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type NoticeListCreateManyCreatedByInputEnvelope = {
+    data: Enumerable<NoticeListCreateManyCreatedByInput>
+    skipDuplicates?: boolean
+  }
+
   export type ActionHistoryCreateWithoutAdminInput = {
     id?: string
     type: number
@@ -12214,6 +13430,33 @@ export namespace Prisma {
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
     accessToken?: StringNullableFilter | string | null
+    adminId?: UuidFilter | string
+  }
+
+  export type NoticeListUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: NoticeListWhereUniqueInput
+    update: XOR<NoticeListUpdateWithoutCreatedByInput, NoticeListUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<NoticeListCreateWithoutCreatedByInput, NoticeListUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type NoticeListUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: NoticeListWhereUniqueInput
+    data: XOR<NoticeListUpdateWithoutCreatedByInput, NoticeListUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type NoticeListUpdateManyWithWhereWithoutCreatedByInput = {
+    where: NoticeListScalarWhereInput
+    data: XOR<NoticeListUpdateManyMutationInput, NoticeListUncheckedUpdateManyWithoutNoticelistInput>
+  }
+
+  export type NoticeListScalarWhereInput = {
+    AND?: Enumerable<NoticeListScalarWhereInput>
+    OR?: Enumerable<NoticeListScalarWhereInput>
+    NOT?: Enumerable<NoticeListScalarWhereInput>
+    id?: UuidFilter | string
+    msg?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeNullableFilter | Date | string | null
     adminId?: UuidFilter | string
   }
 
@@ -12300,6 +13543,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
+    noticelist?: NoticeListCreateNestedManyWithoutCreatedByInput
     history?: ActionHistoryCreateNestedManyWithoutAdminInput
   }
 
@@ -12312,6 +13556,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
+    noticelist?: NoticeListUncheckedCreateNestedManyWithoutCreatedByInput
     history?: ActionHistoryUncheckedCreateNestedManyWithoutAdminInput
   }
 
@@ -12397,6 +13642,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    noticelist?: NoticeListUpdateManyWithoutCreatedByNestedInput
     history?: ActionHistoryUpdateManyWithoutAdminNestedInput
   }
 
@@ -12409,6 +13655,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    noticelist?: NoticeListUncheckedUpdateManyWithoutCreatedByNestedInput
     history?: ActionHistoryUncheckedUpdateManyWithoutAdminNestedInput
   }
 
@@ -12805,6 +14052,7 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     accessToken?: string | null
     agent?: AgentCreateNestedManyWithoutCreatedByInput
+    noticelist?: NoticeListCreateNestedManyWithoutCreatedByInput
   }
 
   export type AdminUncheckedCreateWithoutHistoryInput = {
@@ -12817,6 +14065,7 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     accessToken?: string | null
     agent?: AgentUncheckedCreateNestedManyWithoutCreatedByInput
+    noticelist?: NoticeListUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type AdminCreateOrConnectWithoutHistoryInput = {
@@ -12913,6 +14162,7 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agent?: AgentUpdateManyWithoutCreatedByNestedInput
+    noticelist?: NoticeListUpdateManyWithoutCreatedByNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutHistoryInput = {
@@ -12925,6 +14175,7 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     agent?: AgentUncheckedUpdateManyWithoutCreatedByNestedInput
+    noticelist?: NoticeListUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutBalanceInput = {
@@ -13255,6 +14506,68 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AdminCreateWithoutNoticelistInput = {
+    id?: string
+    email: string
+    password: string
+    name: string
+    token?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
+    agent?: AgentCreateNestedManyWithoutCreatedByInput
+    history?: ActionHistoryCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminUncheckedCreateWithoutNoticelistInput = {
+    id?: string
+    email: string
+    password: string
+    name: string
+    token?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    accessToken?: string | null
+    agent?: AgentUncheckedCreateNestedManyWithoutCreatedByInput
+    history?: ActionHistoryUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminCreateOrConnectWithoutNoticelistInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutNoticelistInput, AdminUncheckedCreateWithoutNoticelistInput>
+  }
+
+  export type AdminUpsertWithoutNoticelistInput = {
+    update: XOR<AdminUpdateWithoutNoticelistInput, AdminUncheckedUpdateWithoutNoticelistInput>
+    create: XOR<AdminCreateWithoutNoticelistInput, AdminUncheckedCreateWithoutNoticelistInput>
+  }
+
+  export type AdminUpdateWithoutNoticelistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    agent?: AgentUpdateManyWithoutCreatedByNestedInput
+    history?: ActionHistoryUpdateManyWithoutAdminNestedInput
+  }
+
+  export type AdminUncheckedUpdateWithoutNoticelistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    agent?: AgentUncheckedUpdateManyWithoutCreatedByNestedInput
+    history?: ActionHistoryUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
   export type AgentCreateManyCreatedByInput = {
     id?: string
     email: string
@@ -13266,6 +14579,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string | null
     accessToken?: string | null
+  }
+
+  export type NoticeListCreateManyCreatedByInput = {
+    id?: string
+    msg: string
+    createdAt?: Date | string
+    updateAt?: Date | string | null
   }
 
   export type ActionHistoryCreateManyAdminInput = {
@@ -13319,6 +14639,27 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NoticeListUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NoticeListUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NoticeListUncheckedUpdateManyWithoutNoticelistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    msg?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ActionHistoryUpdateWithoutAdminInput = {

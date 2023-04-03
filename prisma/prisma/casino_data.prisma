@@ -18,6 +18,7 @@ model Admin {
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
     agent       Agent[]
+    noticelist  NoticeList[]
     history     ActionHistory[] @relation("AdminActionHistory")
 }
 
@@ -115,4 +116,13 @@ model BetDetailHistory {
     gameId      Int
     owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
     gameList    GameList  @relation(fields: [gameId], references: [id], onUpdate: Cascade)
+}
+
+model NoticeList {
+    id        String    @id @default(uuid()) @db.Uuid
+    msg       String    @db.VarChar(255)
+    createdAt DateTime  @default(now())
+    updateAt  DateTime? @updatedAt
+    adminId   String    @db.Uuid
+    createdBy Admin     @relation(fields: [adminId], references: [id], onUpdate: Cascade)
 }
