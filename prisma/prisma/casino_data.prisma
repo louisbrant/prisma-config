@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
     provider = "postgres"
-    url      = "postgres://postgres:Alibaba@1408@localhost:5432/casino_data"
+    url      = "postgres://postgres:Alibaba@1408@localhost:5433/casino_data"
 }
 
 model Admin {
@@ -120,7 +120,8 @@ model BetDetailHistory {
 
 model NoticeList {
     id        String    @id @default(uuid()) @db.Uuid
-    msg       String    @db.VarChar(255)
+    status    Boolean   @default(false)
+    txt       String    @db.VarChar(255)
     createdAt DateTime  @default(now())
     updateAt  DateTime? @updatedAt
     adminId   String    @db.Uuid
