@@ -35,7 +35,7 @@ model Agent {
     accessToken String?         @db.VarChar(100)
     users       User[]
     adminId     String          @db.Uuid
-    createdBy   Admin           @relation(fields: [adminId], references: [id], onUpdate: Cascade)
+    createdBy   Admin           @relation(fields: [adminId], references: [id])
     history     ActionHistory[] @relation("AgentActionHistory")
 }
 
@@ -51,7 +51,7 @@ model User {
     updatedAt        DateTime?          @updatedAt
     accessToken      String?            @db.VarChar(100)
     agentId          String             @db.Uuid
-    createdByAgent   Agent              @relation(fields: [agentId], references: [id], onUpdate: Cascade)
+    createdByAgent   Agent              @relation(fields: [agentId], references: [id])
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
@@ -67,9 +67,9 @@ model ActionHistory {
     userId       String?  @db.Uuid
     agentId      String?  @db.Uuid
     adminId      String?  @db.Uuid
-    user         User?    @relation("UserActionHistory", fields: [userId], references: [id], map: "User_history")
-    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id], map: "Agent_history")
-    admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id], map: "Admin_history")
+    user         User?    @relation("UserActionHistory", fields: [userId], references: [id])
+    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id])
+    admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id])
 }
 
 model Balance {
@@ -79,7 +79,7 @@ model Balance {
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
     ownerId   String    @db.Uuid
-    owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
+    owner     User      @relation(fields: [ownerId], references: [id])
 }
 
 model GameList {
@@ -101,7 +101,7 @@ model PaymentHistory {
     createdAt   DateTime  @default(now())
     approvalAt  DateTime? @updatedAt
     ownerId     String    @db.Uuid
-    owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade, map: "history")
+    owner       User      @relation(fields: [ownerId], references: [id])
 }
 
 model BetDetailHistory {
@@ -114,8 +114,8 @@ model BetDetailHistory {
     updateAt    DateTime? @updatedAt
     ownerId     String    @db.Uuid
     gameId      Int
-    owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
-    gameList    GameList  @relation(fields: [gameId], references: [id], onUpdate: Cascade)
+    owner       User      @relation(fields: [ownerId], references: [id])
+    gameList    GameList  @relation(fields: [gameId], references: [id])
 }
 
 model NoticeList {
@@ -125,5 +125,5 @@ model NoticeList {
     createdAt DateTime  @default(now())
     updateAt  DateTime? @updatedAt
     adminId   String    @db.Uuid
-    createdBy Admin     @relation(fields: [adminId], references: [id], onUpdate: Cascade)
+    createdBy Admin     @relation(fields: [adminId], references: [id])
 }
