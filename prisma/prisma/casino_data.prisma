@@ -10,9 +10,9 @@ datasource db {
 
 model Admin {
     id          String          @id @default(uuid()) @db.Uuid
-    email       String          @db.VarChar(30)
+    email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
-    name        String          @db.VarChar(30)
+    name        String          @unique @db.VarChar(30)
     token       String?         @db.VarChar(100)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
@@ -24,9 +24,9 @@ model Admin {
 
 model Agent {
     id          String          @id @default(uuid()) @db.Uuid
-    email       String          @db.VarChar(30)
+    email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
-    name        String          @db.VarChar(30)
+    name        String          @unique @db.VarChar(30)
     active      Boolean         @default(true)
     token       String?         @db.VarChar(100)
     quota       Int             @default(0)
@@ -34,15 +34,15 @@ model Agent {
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
     users       User[]
-    adminId     String          @db.Uuid
-    createdBy   Admin           @relation(fields: [adminId], references: [id])
+    adminId     String?         @db.Uuid
+    createdBy   Admin?          @relation(fields: [adminId], references: [id])
     history     ActionHistory[] @relation("AgentActionHistory")
 }
 
 model User {
     id               String             @id @default(uuid()) @db.Uuid
-    email            String             @db.VarChar(30)
-    username         String             @db.VarChar(30)
+    email            String             @unique @db.VarChar(30)
+    username         String             @unique @db.VarChar(30)
     password         String             @db.VarChar(100)
     headImage        String             @db.VarChar(100)
     active           Boolean            @default(true)
@@ -50,8 +50,8 @@ model User {
     createdAt        DateTime           @default(now())
     updatedAt        DateTime?          @updatedAt
     accessToken      String?            @db.VarChar(100)
-    agentId          String             @db.Uuid
-    createdByAgent   Agent              @relation(fields: [agentId], references: [id])
+    agentId          String?            @db.Uuid
+    createdByAgent   Agent?             @relation(fields: [agentId], references: [id])
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
