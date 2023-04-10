@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Admin {
-    id          String          @id @default(uuid()) @db.Uuid
+    id          String          @id @db.Uuid
     email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
     name        String          @unique @db.VarChar(30)
@@ -17,16 +17,13 @@ model Admin {
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
+    history     ActionHistory[] @relation("AdminActionHistory")
     agent       Agent[]
     noticelist  NoticeList[]
-    history     ActionHistory[] @relation("AdminActionHistory")
-
-    @@unique([email], map: "admin_email")
-    @@unique([name], map: "admin_name")
 }
 
 model Agent {
-    id          String          @id @default(uuid()) @db.Uuid
+    id          String          @id @db.Uuid
     email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
     name        String          @unique @db.VarChar(30)
@@ -36,19 +33,16 @@ model Agent {
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
-    users       User[]
     adminId     String?         @db.Uuid
-    createdBy   Admin?          @relation(fields: [adminId], references: [id])
     history     ActionHistory[] @relation("AgentActionHistory")
-
-    @@unique([email], map: "agent_email")
-    @@unique([name], map: "agent_name")
+    createdBy   Admin?          @relation(fields: [adminId], references: [id])
+    users       User[]
 }
 
 model User {
-    id               String             @id @default(uuid()) @db.Uuid
-    email            String             @unique @db.VarChar(30)
-    username         String             @unique @db.VarChar(30)
+    id               String             @id @db.Uuid
+    email            String             @unique(map: "user_email") @db.VarChar(30)
+    username         String             @unique(map: "user_name") @db.VarChar(30)
     password         String             @db.VarChar(100)
     headImage        String             @db.VarChar(100)
     active           Boolean            @default(true)
@@ -57,18 +51,15 @@ model User {
     updatedAt        DateTime?          @updatedAt
     accessToken      String?            @db.VarChar(100)
     agentId          String?            @db.Uuid
-    createdByAgent   Agent?             @relation(fields: [agentId], references: [id])
+    history          ActionHistory[]    @relation("UserActionHistory")
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
-    history          ActionHistory[]    @relation("UserActionHistory")
-
-    @@unique([email], map: "user_email")
-    @@unique([username], map: "user_name")
+    createdBy        Agent?             @relation(fields: [agentId], references: [id])
 }
 
 model ActionHistory {
-    id           String   @id @default(uuid()) @db.Uuid
+    id           String   @id @db.Uuid
     type         Int
     newValueJson Json?
     ip           String   @db.VarChar(20)
@@ -76,13 +67,13 @@ model ActionHistory {
     userId       String?  @db.Uuid
     agentId      String?  @db.Uuid
     adminId      String?  @db.Uuid
-    user         User?    @relation("UserActionHistory", fields: [userId], references: [id])
-    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id])
     admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id])
+    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id])
+    user         User?    @relation("UserActionHistory", fields: [userId], references: [id])
 }
 
 model Balance {
-    id        String    @id @default(uuid()) @db.Uuid
+    id        String    @id @db.Uuid
     balance   Int
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
@@ -101,7 +92,7 @@ model GameList {
 }
 
 model PaymentHistory {
-    id          String    @id @default(uuid()) @db.Uuid
+    id          String    @id @db.Uuid
     beforeScore Int
     changeScore Int
     newScore    Int
@@ -113,7 +104,7 @@ model PaymentHistory {
 }
 
 model BetDetailHistory {
-    id          String    @id @default(uuid()) @db.Uuid
+    id          String    @id @db.Uuid
     beforeScore Int
     betScore    Int
     winScore    Int
@@ -122,12 +113,12 @@ model BetDetailHistory {
     updateAt    DateTime? @updatedAt
     ownerId     String    @db.Uuid
     gameId      Int
-    owner       User      @relation(fields: [ownerId], references: [id])
     gameList    GameList  @relation(fields: [gameId], references: [id])
+    owner       User      @relation(fields: [ownerId], references: [id])
 }
 
 model NoticeList {
-    id        String    @id @default(uuid()) @db.Uuid
+    id        String    @id @db.Uuid
     status    Boolean   @default(false)
     txt       String    @db.VarChar(255)
     createdAt DateTime  @default(now())
