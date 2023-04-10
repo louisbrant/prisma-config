@@ -6,6 +6,7 @@ const gameListData = [
     eGameName: "Space Shooter",
     cGameName: '太空射手',
     type: 1,
+    id: 13,
     json: JSON.stringify({
       normal: [
         {
@@ -36,6 +37,7 @@ const gameListData = [
     eGameName: "Eu fish",
     cGameName: '欧盟鱼类',
     type: 1,
+    id: 2001,
     json: JSON.stringify({
       normal: [
         {
@@ -66,6 +68,7 @@ const gameListData = [
     eGameName: "Shanghai Tycoon",
     cGameName: '上海零零发',
     type: 1,
+    id: 149,
     json: JSON.stringify({
       serverId: 15049,
       normal: [
@@ -85,6 +88,7 @@ const gameListData = [
     eGameName: "Multiplayer 5 Cards Poker",
     cGameName: '百人场牛牛',
     type: 1,
+    id: 1019,
     json: JSON.stringify({
       serverId: 16019,
       normal: [
@@ -104,6 +108,7 @@ const gameListData = [
     eGameName: "Banco Baccarat",
     cGameName: '百场乐',
     type: 1,
+    id: 1021,
     json: JSON.stringify({
       serverId: 16021,
       normal: [
@@ -123,6 +128,7 @@ const gameListData = [
     eGameName: "Multiplayer 5 Cards Poker",
     cGameName: '百人场牛牛',
     type: 1,
+    id: 3501,
     json: JSON.stringify({
       serverId: 13501,
       normal: [
@@ -142,6 +148,7 @@ const gameListData = [
     eGameName: "God Of Wealth",
     cGameName: '财神夺宝',
     type: 1,
+    id: 162,
     json: JSON.stringify({
       serverId: 15066,
       normal: [
