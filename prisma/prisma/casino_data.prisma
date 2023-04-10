@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Admin {
-    id          String          @id @db.Uuid
+    id          String          @id @default(uuid()) @db.Uuid
     email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
     name        String          @unique @db.VarChar(30)
@@ -23,7 +23,7 @@ model Admin {
 }
 
 model Agent {
-    id          String          @id @db.Uuid
+    id          String          @id @default(uuid()) @db.Uuid
     email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
     name        String          @unique @db.VarChar(30)
@@ -40,7 +40,7 @@ model Agent {
 }
 
 model User {
-    id               String             @id @db.Uuid
+    id               String             @id @default(uuid()) @db.Uuid
     email            String             @unique(map: "user_email") @db.VarChar(30)
     username         String             @unique(map: "user_name") @db.VarChar(30)
     password         String             @db.VarChar(100)
@@ -59,7 +59,7 @@ model User {
 }
 
 model ActionHistory {
-    id           String   @id @db.Uuid
+    id           String   @id @default(uuid()) @db.Uuid
     type         Int
     newValueJson Json?
     ip           String   @db.VarChar(20)
@@ -73,7 +73,7 @@ model ActionHistory {
 }
 
 model Balance {
-    id        String    @id @db.Uuid
+    id        String    @id @default(uuid()) @db.Uuid
     balance   Int
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
@@ -92,7 +92,7 @@ model GameList {
 }
 
 model PaymentHistory {
-    id          String    @id @db.Uuid
+    id          String    @id @default(uuid()) @db.Uuid
     beforeScore Int
     changeScore Int
     newScore    Int
@@ -104,7 +104,7 @@ model PaymentHistory {
 }
 
 model BetDetailHistory {
-    id          String    @id @db.Uuid
+    id          String    @id @default(uuid()) @db.Uuid
     beforeScore Int
     betScore    Int
     winScore    Int
@@ -118,7 +118,7 @@ model BetDetailHistory {
 }
 
 model NoticeList {
-    id        String    @id @db.Uuid
+    id        String    @id @default(uuid()) @db.Uuid
     status    Boolean   @default(false)
     txt       String    @db.VarChar(255)
     createdAt DateTime  @default(now())
