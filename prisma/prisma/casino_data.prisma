@@ -110,7 +110,7 @@ model BetDetailHistory {
     winScore    Int
     newScore    Int
     createdAt   DateTime  @default(now())
-    updateAt    DateTime? @updatedAt
+    updatedAt   DateTime? @updatedAt
     ownerId     String    @db.Uuid
     gameId      Int
     gameList    GameList  @relation(fields: [gameId], references: [id])
@@ -122,7 +122,7 @@ model NoticeList {
     status    Boolean   @default(false)
     txt       String    @db.VarChar(255)
     createdAt DateTime  @default(now())
-    updateAt  DateTime? @updatedAt
+    updatedAt DateTime? @updatedAt
     adminId   String    @db.Uuid
     createdBy Admin     @relation(fields: [adminId], references: [id])
 }
