@@ -88,6 +88,7 @@ model GameList {
     type             Int
     json             Json?
     createdAt        DateTime           @default(now())
+    updatedAt        DateTime?          @updatedAt
     betDetailHistory BetDetailHistory[]
 }
 
@@ -104,17 +105,16 @@ model PaymentHistory {
 }
 
 model BetDetailHistory {
-    id          String    @id @default(uuid()) @db.Uuid
+    id          String   @id @default(uuid()) @db.Uuid
     beforeScore Int
     betScore    Int
     winScore    Int
     newScore    Int
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime? @updatedAt
-    ownerId     String    @db.Uuid
+    createdAt   DateTime @default(now())
+    ownerId     String   @db.Uuid
     gameId      Int
-    gameList    GameList  @relation(fields: [gameId], references: [id])
-    owner       User      @relation(fields: [ownerId], references: [id])
+    gameList    GameList @relation(fields: [gameId], references: [id])
+    owner       User     @relation(fields: [ownerId], references: [id])
 }
 
 model NoticeList {
