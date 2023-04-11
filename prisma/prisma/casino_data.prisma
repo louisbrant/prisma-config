@@ -109,7 +109,7 @@ model BetDetailHistory {
     betScore    Int
     winScore    Int
     newScore    Int
-    createAt    DateTime  @default(now())
+    createdAt   DateTime  @default(now())
     updateAt    DateTime? @updatedAt
     ownerId     String    @db.Uuid
     gameId      Int
