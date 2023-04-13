@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
     provider = "postgres"
-    url      = "postgres://postgres:Alibaba@1408@localhost:5433/casino_data"
+    url      = "postgres://postgres:Alibaba@1408@localhost:5432/casino_data"
 }
 
 model Admin {
@@ -92,6 +92,7 @@ model GameList {
     createdAt        DateTime           @default(now())
     updatedAt        DateTime?          @updatedAt
     betDetailHistory BetDetailHistory[]
+    gameSession      GameSession[]
 }
 
 model PaymentHistory {
@@ -135,6 +136,7 @@ model GameSession {
     createdAt     DateTime        @default(now())
     playerSession PlayerSession[]
     user          User[]
+    gameData      GameList        @relation(fields: [gameId], references: [id])
 }
 
 model PlayerSession {
