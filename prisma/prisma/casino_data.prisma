@@ -42,7 +42,7 @@ model Agent {
 model User {
     id               String             @id @default(uuid()) @db.Uuid
     email            String             @unique(map: "user_email") @db.VarChar(30)
-    username         String             @unique(map: "user_name") @db.VarChar(30)
+    name             String             @unique(map: "user_name") @db.VarChar(30)
     password         String             @db.VarChar(100)
     headImage        String             @db.VarChar(100)
     active           Boolean            @default(true)
@@ -51,11 +51,13 @@ model User {
     updatedAt        DateTime?          @updatedAt
     accessToken      String?            @db.VarChar(100)
     agentId          String?            @db.Uuid
+    gameSessionId    String?            @db.Uuid
     history          ActionHistory[]    @relation("UserActionHistory")
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
     createdBy        Agent?             @relation(fields: [agentId], references: [id])
+    gameSession      GameSession?       @relation(fields: [gameSessionId], references: [id])
 }
 
 model ActionHistory {
@@ -125,4 +127,22 @@ model NoticeList {
     updatedAt DateTime? @updatedAt
     adminId   String    @db.Uuid
     createdBy Admin     @relation(fields: [adminId], references: [id])
+}
+
+model GameSession {
+    id            String          @id @unique(map: "game_session_id") @default(uuid()) @db.Uuid
+    gameId        Int
+    createdAt     DateTime        @default(now())
+    playerSession PlayerSession[]
+    user          User[]
+}
+
+model PlayerSession {
+    id            String      @id @unique(map: "player_session_id") @default(uuid()) @db.Uuid
+    gameSessionId String      @db.Uuid
+    betAmount     Int
+    betLines      Int?
+    betResult     Int
+    createdAt     DateTime    @default(now())
+    gameSession   GameSession @relation(fields: [gameSessionId], references: [id])
 }
