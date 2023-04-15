@@ -29,7 +29,6 @@ model Agent {
     name        String          @unique @db.VarChar(30)
     active      Boolean         @default(true)
     token       String?         @db.VarChar(100)
-    quota       Int             @default(0)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
@@ -37,6 +36,7 @@ model Agent {
     history     ActionHistory[] @relation("AgentActionHistory")
     createdBy   Admin?          @relation(fields: [adminId], references: [id])
     users       User[]
+    quota       Quota[]
 }
 
 model User {
@@ -147,4 +147,13 @@ model PlayerSession {
     betResult     Int
     createdAt     DateTime    @default(now())
     gameSession   GameSession @relation(fields: [gameSessionId], references: [id])
+}
+
+model Quota {
+    id         String    @id @unique(map: "quota_id") @default(uuid()) @db.Uuid
+    balance    Int
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime? @updatedAt
+    agentId    String    @db.Uuid
+    agentQuota Agent     @relation(fields: [agentId], references: [id])
 }
