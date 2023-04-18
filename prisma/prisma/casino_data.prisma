@@ -46,7 +46,6 @@ model User {
     password         String             @db.VarChar(100)
     headImage        String             @db.VarChar(100)
     active           Boolean            @default(true)
-    token            String?            @db.VarChar(100)
     createdAt        DateTime           @default(now())
     updatedAt        DateTime?          @updatedAt
     accessToken      String?            @db.VarChar(100)
@@ -56,6 +55,10 @@ model User {
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
+    playerSession    PlayerSession[]
+    status           Status[]
+    withdrawal       Withdrawal[]
+    deposit          Deposit[]
     createdBy        Agent?             @relation(fields: [agentId], references: [id])
     gameSession      GameSession?       @relation(fields: [gameSessionId], references: [id])
 }
@@ -142,11 +145,13 @@ model GameSession {
 model PlayerSession {
     id            String      @id @unique(map: "player_session_id") @default(uuid()) @db.Uuid
     gameSessionId String      @db.Uuid
+    userId        String      @db.Uuid
     betAmount     Int
     betLines      Json?
     betResult     Int
     createdAt     DateTime    @default(now())
     gameSession   GameSession @relation(fields: [gameSessionId], references: [id])
+    user          User        @relation(fields: [userId], references: [id])
 }
 
 model Quota {
@@ -156,4 +161,37 @@ model Quota {
     updatedAt  DateTime? @updatedAt
     agentId    String    @db.Uuid
     agentQuota Agent     @relation(fields: [agentId], references: [id])
+}
+
+model Status {
+    id           String       @id @unique(map: "status_id") @default(uuid()) @db.Uuid
+    approval     String       @default("Pending")
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime?    @updatedAt
+    approvedById String       @db.Uuid
+    approvedBy   User         @relation(fields: [approvedById], references: [id])
+    withdrawal   Withdrawal[]
+    deposit      Deposit[]
+}
+
+model Withdrawal {
+    id        String    @id @unique(map: "withdrawal_id") @default(uuid()) @db.Uuid
+    amount    String    @default("Pending")
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    Status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    user      User      @relation(fields: [ownerId], references: [id])
+}
+
+model Deposit {
+    id        String    @id @unique(map: "deposit_id") @default(uuid()) @db.Uuid
+    amount    String    @default("Pending")
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    Status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    user      User      @relation(fields: [ownerId], references: [id])
 }

@@ -118,7 +118,6 @@ exports.Prisma.AgentScalarFieldEnum = makeEnum({
   name: 'name',
   active: 'active',
   token: 'token',
-  quota: 'quota',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   accessToken: 'accessToken',
@@ -127,7 +126,6 @@ exports.Prisma.AgentScalarFieldEnum = makeEnum({
 
 exports.Prisma.BalanceScalarFieldEnum = makeEnum({
   id: 'id',
-  type: 'type',
   balance: 'balance',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -140,10 +138,18 @@ exports.Prisma.BetDetailHistoryScalarFieldEnum = makeEnum({
   betScore: 'betScore',
   winScore: 'winScore',
   newScore: 'newScore',
-  createAt: 'createAt',
-  updateAt: 'updateAt',
+  createdAt: 'createdAt',
   ownerId: 'ownerId',
   gameId: 'gameId'
+});
+
+exports.Prisma.DepositScalarFieldEnum = makeEnum({
+  id: 'id',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  statusId: 'statusId',
+  ownerId: 'ownerId'
 });
 
 exports.Prisma.GameListScalarFieldEnum = makeEnum({
@@ -152,6 +158,13 @@ exports.Prisma.GameListScalarFieldEnum = makeEnum({
   cGameName: 'cGameName',
   type: 'type',
   json: 'json',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+});
+
+exports.Prisma.GameSessionScalarFieldEnum = makeEnum({
+  id: 'id',
+  gameId: 'gameId',
   createdAt: 'createdAt'
 });
 
@@ -163,9 +176,10 @@ exports.Prisma.JsonNullValueFilter = makeEnum({
 
 exports.Prisma.NoticeListScalarFieldEnum = makeEnum({
   id: 'id',
-  msg: 'msg',
+  status: 'status',
+  txt: 'txt',
   createdAt: 'createdAt',
-  updateAt: 'updateAt',
+  updatedAt: 'updatedAt',
   adminId: 'adminId'
 });
 
@@ -185,14 +199,40 @@ exports.Prisma.PaymentHistoryScalarFieldEnum = makeEnum({
   ownerId: 'ownerId'
 });
 
+exports.Prisma.PlayerSessionScalarFieldEnum = makeEnum({
+  id: 'id',
+  gameSessionId: 'gameSessionId',
+  userId: 'userId',
+  betAmount: 'betAmount',
+  betLines: 'betLines',
+  betResult: 'betResult',
+  createdAt: 'createdAt'
+});
+
 exports.Prisma.QueryMode = makeEnum({
   default: 'default',
   insensitive: 'insensitive'
 });
 
+exports.Prisma.QuotaScalarFieldEnum = makeEnum({
+  id: 'id',
+  balance: 'balance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  agentId: 'agentId'
+});
+
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
+});
+
+exports.Prisma.StatusScalarFieldEnum = makeEnum({
+  id: 'id',
+  approval: 'approval',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  approvedById: 'approvedById'
 });
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
@@ -205,15 +245,24 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = makeEnum({
   id: 'id',
   email: 'email',
-  username: 'username',
+  name: 'name',
   password: 'password',
   headImage: 'headImage',
   active: 'active',
-  token: 'token',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   accessToken: 'accessToken',
-  agentId: 'agentId'
+  agentId: 'agentId',
+  gameSessionId: 'gameSessionId'
+});
+
+exports.Prisma.WithdrawalScalarFieldEnum = makeEnum({
+  id: 'id',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  statusId: 'statusId',
+  ownerId: 'ownerId'
 });
 
 
@@ -226,7 +275,13 @@ exports.Prisma.ModelName = makeEnum({
   GameList: 'GameList',
   PaymentHistory: 'PaymentHistory',
   BetDetailHistory: 'BetDetailHistory',
-  NoticeList: 'NoticeList'
+  NoticeList: 'NoticeList',
+  GameSession: 'GameSession',
+  PlayerSession: 'PlayerSession',
+  Quota: 'Quota',
+  Status: 'Status',
+  Withdrawal: 'Withdrawal',
+  Deposit: 'Deposit'
 });
 
 /**

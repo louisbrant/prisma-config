@@ -10,52 +10,57 @@ datasource db {
 
 model Admin {
     id          String          @id @default(uuid()) @db.Uuid
-    email       String          @db.VarChar(30)
+    email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
-    name        String          @db.VarChar(30)
+    name        String          @unique @db.VarChar(30)
     token       String?         @db.VarChar(100)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
+    history     ActionHistory[] @relation("AdminActionHistory")
     agent       Agent[]
     noticelist  NoticeList[]
-    history     ActionHistory[] @relation("AdminActionHistory")
 }
 
 model Agent {
     id          String          @id @default(uuid()) @db.Uuid
-    email       String          @db.VarChar(30)
+    email       String          @unique @db.VarChar(30)
     password    String          @db.VarChar(100)
-    name        String          @db.VarChar(30)
+    name        String          @unique @db.VarChar(30)
     active      Boolean         @default(true)
     token       String?         @db.VarChar(100)
-    quota       Int             @default(0)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
     accessToken String?         @db.VarChar(100)
-    users       User[]
-    adminId     String          @db.Uuid
-    createdBy   Admin           @relation(fields: [adminId], references: [id], onUpdate: Cascade)
+    adminId     String?         @db.Uuid
     history     ActionHistory[] @relation("AgentActionHistory")
+    createdBy   Admin?          @relation(fields: [adminId], references: [id])
+    users       User[]
+    quota       Quota[]
 }
 
 model User {
     id               String             @id @default(uuid()) @db.Uuid
-    email            String             @db.VarChar(30)
-    username         String             @db.VarChar(30)
+    email            String             @unique(map: "user_email") @db.VarChar(30)
+    name             String             @unique(map: "user_name") @db.VarChar(30)
     password         String             @db.VarChar(100)
     headImage        String             @db.VarChar(100)
     active           Boolean            @default(true)
-    token            String?            @db.VarChar(100)
     createdAt        DateTime           @default(now())
     updatedAt        DateTime?          @updatedAt
     accessToken      String?            @db.VarChar(100)
-    agentId          String             @db.Uuid
-    createdByAgent   Agent              @relation(fields: [agentId], references: [id], onUpdate: Cascade)
+    agentId          String?            @db.Uuid
+    gameSessionId    String?            @db.Uuid
+    history          ActionHistory[]    @relation("UserActionHistory")
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
-    history          ActionHistory[]    @relation("UserActionHistory")
+    playerSession    PlayerSession[]
+    status           Status[]
+    withdrawal       Withdrawal[]
+    deposit          Deposit[]
+    createdBy        Agent?             @relation(fields: [agentId], references: [id])
+    gameSession      GameSession?       @relation(fields: [gameSessionId], references: [id])
 }
 
 model ActionHistory {
@@ -67,19 +72,18 @@ model ActionHistory {
     userId       String?  @db.Uuid
     agentId      String?  @db.Uuid
     adminId      String?  @db.Uuid
-    user         User?    @relation("UserActionHistory", fields: [userId], references: [id], map: "User_history")
-    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id], map: "Agent_history")
-    admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id], map: "Admin_history")
+    admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id])
+    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id])
+    user         User?    @relation("UserActionHistory", fields: [userId], references: [id])
 }
 
 model Balance {
     id        String    @id @default(uuid()) @db.Uuid
-    type      Int
     balance   Int
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
     ownerId   String    @db.Uuid
-    owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
+    owner     User      @relation(fields: [ownerId], references: [id])
 }
 
 model GameList {
@@ -89,7 +93,9 @@ model GameList {
     type             Int
     json             Json?
     createdAt        DateTime           @default(now())
+    updatedAt        DateTime?          @updatedAt
     betDetailHistory BetDetailHistory[]
+    gameSession      GameSession[]
 }
 
 model PaymentHistory {
@@ -101,28 +107,91 @@ model PaymentHistory {
     createdAt   DateTime  @default(now())
     approvalAt  DateTime? @updatedAt
     ownerId     String    @db.Uuid
-    owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade, map: "history")
+    owner       User      @relation(fields: [ownerId], references: [id])
 }
 
 model BetDetailHistory {
-    id          String    @id @default(uuid()) @db.Uuid
+    id          String   @id @default(uuid()) @db.Uuid
     beforeScore Int
     betScore    Int
     winScore    Int
     newScore    Int
-    createAt    DateTime  @default(now())
-    updateAt    DateTime? @updatedAt
-    ownerId     String    @db.Uuid
+    createdAt   DateTime @default(now())
+    ownerId     String   @db.Uuid
     gameId      Int
-    owner       User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
-    gameList    GameList  @relation(fields: [gameId], references: [id], onUpdate: Cascade)
+    gameList    GameList @relation(fields: [gameId], references: [id])
+    owner       User     @relation(fields: [ownerId], references: [id])
 }
 
 model NoticeList {
     id        String    @id @default(uuid()) @db.Uuid
-    msg       String    @db.VarChar(255)
+    status    Boolean   @default(false)
+    txt       String    @db.VarChar(255)
     createdAt DateTime  @default(now())
-    updateAt  DateTime? @updatedAt
+    updatedAt DateTime? @updatedAt
     adminId   String    @db.Uuid
-    createdBy Admin     @relation(fields: [adminId], references: [id], onUpdate: Cascade)
+    createdBy Admin     @relation(fields: [adminId], references: [id])
+}
+
+model GameSession {
+    id            String          @id @unique(map: "game_session_id") @default(uuid()) @db.Uuid
+    gameId        Int
+    createdAt     DateTime        @default(now())
+    playerSession PlayerSession[]
+    user          User[]
+    gameData      GameList        @relation(fields: [gameId], references: [id])
+}
+
+model PlayerSession {
+    id            String      @id @unique(map: "player_session_id") @default(uuid()) @db.Uuid
+    gameSessionId String      @db.Uuid
+    userId        String      @db.Uuid
+    betAmount     Int
+    betLines      Json?
+    betResult     Int
+    createdAt     DateTime    @default(now())
+    gameSession   GameSession @relation(fields: [gameSessionId], references: [id])
+    user          User        @relation(fields: [userId], references: [id])
+}
+
+model Quota {
+    id         String    @id @unique(map: "quota_id") @default(uuid()) @db.Uuid
+    balance    Int
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime? @updatedAt
+    agentId    String    @db.Uuid
+    agentQuota Agent     @relation(fields: [agentId], references: [id])
+}
+
+model Status {
+    id           String       @id @unique(map: "status_id") @default(uuid()) @db.Uuid
+    approval     String       @default("Pending")
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime?    @updatedAt
+    approvedById String       @db.Uuid
+    approvedBy   User         @relation(fields: [approvedById], references: [id])
+    withdrawal   Withdrawal[]
+    deposit      Deposit[]
+}
+
+model Withdrawal {
+    id        String    @id @unique(map: "withdrawal_id") @default(uuid()) @db.Uuid
+    amount    String    @default("Pending")
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    Status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    user      User      @relation(fields: [ownerId], references: [id])
+}
+
+model Deposit {
+    id        String    @id @unique(map: "deposit_id") @default(uuid()) @db.Uuid
+    amount    String    @default("Pending")
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    Status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    user      User      @relation(fields: [ownerId], references: [id])
 }
