@@ -136,7 +136,7 @@ const gameListData = [
           server: 1,
           bet: 1,
           Match: 0,
-          entryCoin: 100,
+          entryCoin: 1000,
           gift: 0,
           ip: '72.46.128.50',
           port: 13501
@@ -156,7 +156,7 @@ const gameListData = [
           server: 1,
           bet: 1,
           Match: 0,
-          entryCoin: 100,
+          entryCoin: 1000,
           gift: 0,
           ip: '72.46.128.50',
           port: 15066
