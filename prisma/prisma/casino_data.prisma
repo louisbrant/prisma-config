@@ -19,7 +19,6 @@ model Admin {
     accessToken String?         @db.VarChar(100)
     history     ActionHistory[] @relation("AdminActionHistory")
     agent       Agent[]
-    noticelist  NoticeList[]
 }
 
 model Agent {
@@ -124,16 +123,6 @@ model BetDetailHistory {
     owner       User     @relation(fields: [ownerId], references: [id])
 }
 
-model NoticeList {
-    id        String    @id @default(uuid()) @db.Uuid
-    status    Boolean   @default(false)
-    txt       String    @db.VarChar(255)
-    createdAt DateTime  @default(now())
-    updatedAt DateTime? @updatedAt
-    adminId   String    @db.Uuid
-    createdBy Admin     @relation(fields: [adminId], references: [id])
-}
-
 model GameSession {
     id            String          @id @unique(map: "game_session_id") @default(uuid()) @db.Uuid
     gameId        Int
@@ -188,7 +177,7 @@ model Withdrawal {
 
 model Deposit {
     id        String    @id @unique(map: "deposit_id") @default(uuid()) @db.Uuid
-    amount    String    @default("Pending")
+    amount    Int
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
     statusId  String    @db.Uuid
