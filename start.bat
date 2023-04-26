@@ -21,3 +21,6 @@ start cmd /k "&&npx prisma migrate dev --name init --schema prisma/prisma/casino
 
 
 //npx prisma migrate dev --preview-feature --skip-generate --name "init" --schema prisma/prisma/casino_data.prisma
+
+//nGo.gMa1K(j$Z\ws
+//$2b$12$72riyf8VHqfQ/QZAe0Xn0e8yhHq3JJggSdzu3bbABE/Syz/ezGxiy

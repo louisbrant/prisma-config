@@ -91,7 +91,6 @@ function makeEnum(x) { return x; }
 
 exports.Prisma.ActionHistoryScalarFieldEnum = makeEnum({
   id: 'id',
-  type: 'type',
   newValueJson: 'newValueJson',
   ip: 'ip',
   createdAt: 'createdAt',
@@ -117,11 +116,14 @@ exports.Prisma.AgentScalarFieldEnum = makeEnum({
   password: 'password',
   name: 'name',
   active: 'active',
-  token: 'token',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   accessToken: 'accessToken',
   adminId: 'adminId'
+});
+
+exports.Prisma.Alembic_versionScalarFieldEnum = makeEnum({
+  version_num: 'version_num'
 });
 
 exports.Prisma.BalanceScalarFieldEnum = makeEnum({
@@ -158,8 +160,7 @@ exports.Prisma.GameListScalarFieldEnum = makeEnum({
   cGameName: 'cGameName',
   type: 'type',
   json: 'json',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  createdAt: 'createdAt'
 });
 
 exports.Prisma.GameSessionScalarFieldEnum = makeEnum({
@@ -172,15 +173,6 @@ exports.Prisma.JsonNullValueFilter = makeEnum({
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-});
-
-exports.Prisma.NoticeListScalarFieldEnum = makeEnum({
-  id: 'id',
-  status: 'status',
-  txt: 'txt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  adminId: 'adminId'
 });
 
 exports.Prisma.NullableJsonNullValueInput = makeEnum({
@@ -249,11 +241,11 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   password: 'password',
   headImage: 'headImage',
   active: 'active',
+  token: 'token',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   accessToken: 'accessToken',
-  agentId: 'agentId',
-  gameSessionId: 'gameSessionId'
+  agentId: 'agentId'
 });
 
 exports.Prisma.WithdrawalScalarFieldEnum = makeEnum({
@@ -272,16 +264,16 @@ exports.Prisma.ModelName = makeEnum({
   User: 'User',
   ActionHistory: 'ActionHistory',
   Balance: 'Balance',
-  GameList: 'GameList',
   PaymentHistory: 'PaymentHistory',
   BetDetailHistory: 'BetDetailHistory',
-  NoticeList: 'NoticeList',
   GameSession: 'GameSession',
   PlayerSession: 'PlayerSession',
   Quota: 'Quota',
   Status: 'Status',
   Withdrawal: 'Withdrawal',
-  Deposit: 'Deposit'
+  Deposit: 'Deposit',
+  alembic_version: 'alembic_version',
+  GameList: 'GameList'
 });
 
 /**

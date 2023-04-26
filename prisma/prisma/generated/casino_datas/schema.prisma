@@ -1,0 +1,201 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated/casino_datas"
+}
+
+datasource db {
+    provider = "postgres"
+    url      = "postgres://postgres:Alibaba@1408@localhost:5433/casino_datas"
+}
+
+model Admin {
+    id          String          @id @default(uuid()) @db.Uuid
+    email       String          @db.VarChar(255)
+    password    String          @db.VarChar(255)
+    name        String          @db.VarChar(255)
+    token       String?         @db.VarChar(255)
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime?       @updatedAt
+    accessToken String?         @db.VarChar(255)
+    history     ActionHistory[] @relation("AdminActionHistory")
+    agent       Agent[]
+
+    @@unique([email])
+    @@unique([name])
+}
+
+model Agent {
+    id          String          @id @default(uuid()) @db.Uuid
+    email       String          @db.VarChar(255)
+    password    String          @db.VarChar(255)
+    name        String          @db.VarChar(255)
+    active      Boolean         @default(true)
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime?       @updatedAt
+    accessToken String?         @db.VarChar(255)
+    adminId     String?         @db.Uuid
+    history     ActionHistory[] @relation("AgentActionHistory")
+    createdBy   Admin?          @relation(fields: [adminId], references: [id])
+    users       User[]
+    quota       Quota[]
+    status      Status[]
+
+    @@unique([email])
+    @@unique([name])
+}
+
+model User {
+    id               String             @id @default(uuid()) @db.Uuid
+    email            String             @db.VarChar(255)
+    name             String             @db.VarChar(255)
+    password         String             @db.VarChar(255)
+    headImage        String             @db.VarChar(255)
+    active           Boolean            @default(true)
+    token            String?            @db.VarChar(255)
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime?          @updatedAt
+    accessToken      String?            @db.VarChar(255)
+    agentId          String?            @db.Uuid
+    gameSessionId    String?            @db.Uuid
+    history          ActionHistory[]    @relation("UserActionHistory")
+    balance          Balance[]
+    betDetailHistory BetDetailHistory[]
+    paymentHistory   PaymentHistory[]
+    playerSession    PlayerSession[]
+    withdrawal       Withdrawal[]
+    deposit          Deposit[]
+    agent            Agent?             @relation(fields: [agentId], references: [id])
+    gameSession      GameSession?       @relation(fields: [gameSessionId], references: [id])
+
+    @@unique([name])
+    @@unique([email])
+}
+
+model ActionHistory {
+    id           String   @id @default(uuid()) @db.Uuid
+    newValueJson Json?
+    ip           String   @db.VarChar(255)
+    createdAt    DateTime @default(now())
+    userId       String?  @db.Uuid
+    agentId      String?  @db.Uuid
+    adminId      String?  @db.Uuid
+    admin        Admin?   @relation("AdminActionHistory", fields: [adminId], references: [id])
+    agent        Agent?   @relation("AgentActionHistory", fields: [agentId], references: [id])
+    user         User?    @relation("UserActionHistory", fields: [userId], references: [id])
+}
+
+model Balance {
+    id        String    @id @default(uuid()) @db.Uuid
+    balance   Int
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    ownerId   String    @db.Uuid
+    owner     User      @relation(fields: [ownerId], references: [id])
+}
+
+model PaymentHistory {
+    id          String    @id @default(uuid()) @db.Uuid
+    beforeScore Int
+    changeScore Int
+    newScore    Int
+    approval    Boolean   @default(false)
+    createdAt   DateTime  @default(now())
+    approvalAt  DateTime? @updatedAt
+    ownerId     String    @db.Uuid
+    owner       User      @relation(fields: [ownerId], references: [id])
+}
+
+model BetDetailHistory {
+    id          String   @id @default(uuid()) @db.Uuid
+    beforeScore Int
+    betScore    Int
+    winScore    Int
+    newScore    Int
+    createdAt   DateTime @default(now())
+    ownerId     String   @db.Uuid
+    gameId      Int
+    owner       User     @relation(fields: [ownerId], references: [id])
+    game        GameList @relation(fields: [gameId], references: [id])
+}
+
+model GameSession {
+    id            String          @id @default(uuid()) @db.Uuid
+    gameId        Int
+    createdAt     DateTime        @default(now())
+    playerSession PlayerSession[]
+    user          User[]
+    game          GameList        @relation(fields: [gameId], references: [id])
+}
+
+model PlayerSession {
+    id            String      @id @default(uuid()) @db.Uuid
+    gameSessionId String      @db.Uuid
+    userId        String      @db.Uuid
+    betAmount     Int
+    betLines      Int
+    betResult     Int
+    createdAt     DateTime    @default(now())
+    gameSession   GameSession @relation(fields: [gameSessionId], references: [id])
+    user          User        @relation(fields: [userId], references: [id])
+}
+
+model Quota {
+    id         String    @id @default(uuid()) @db.Uuid
+    balance    Int
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime? @updatedAt
+    agentId    String    @db.Uuid
+    agentQuota Agent     @relation(fields: [agentId], references: [id])
+}
+
+model Status {
+    id           String       @id @default(uuid()) @db.Uuid
+    approval     String?      @db.VarChar(255)
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime?    @updatedAt
+    approvedById String?      @db.Uuid
+    approvedBy   Agent?       @relation(fields: [approvedById], references: [id])
+    withdrawal   Withdrawal[]
+    deposit      Deposit[]
+}
+
+model Withdrawal {
+    id        String    @id @default(uuid()) @db.Uuid
+    amount    Int
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    owner     User      @relation(fields: [ownerId], references: [id])
+}
+
+model Deposit {
+    id        String    @id @default(uuid()) @db.Uuid
+    amount    Int
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    owner     User      @relation(fields: [ownerId], references: [id])
+
+    @@unique([id])
+}
+
+model alembic_version {
+    version_num String @id @db.VarChar(255)
+
+    @@unique([version_num])
+}
+
+model GameList {
+    id               Int                @id
+    eGameName        String             @db.VarChar(255)
+    cGameName        String             @db.VarChar(255)
+    type             Int?
+    json             Json?
+    createdAt        DateTime?          @default(now())
+    gameSession      GameSession[]
+    betDetailHistory BetDetailHistory[]
+}

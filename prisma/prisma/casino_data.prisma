@@ -10,64 +10,69 @@ datasource db {
 
 model Admin {
     id          String          @id @default(uuid()) @db.Uuid
-    email       String          @unique @db.VarChar(30)
-    password    String          @db.VarChar(100)
-    name        String          @unique @db.VarChar(30)
-    token       String?         @db.VarChar(100)
+    email       String          @db.VarChar(255)
+    password    String          @db.VarChar(255)
+    name        String          @db.VarChar(255)
+    token       String?         @db.VarChar(255)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
-    accessToken String?         @db.VarChar(100)
+    accessToken String?         @db.VarChar(255)
     history     ActionHistory[] @relation("AdminActionHistory")
     agent       Agent[]
+
+    @@unique([email])
+    @@unique([name])
 }
 
 model Agent {
     id          String          @id @default(uuid()) @db.Uuid
-    email       String          @unique @db.VarChar(30)
-    password    String          @db.VarChar(100)
-    name        String          @unique @db.VarChar(30)
+    email       String          @db.VarChar(255)
+    password    String          @db.VarChar(255)
+    name        String          @db.VarChar(255)
     active      Boolean         @default(true)
-    token       String?         @db.VarChar(100)
     createdAt   DateTime        @default(now())
     updatedAt   DateTime?       @updatedAt
-    accessToken String?         @db.VarChar(100)
+    accessToken String?         @db.VarChar(255)
     adminId     String?         @db.Uuid
     history     ActionHistory[] @relation("AgentActionHistory")
     createdBy   Admin?          @relation(fields: [adminId], references: [id])
     users       User[]
     quota       Quota[]
+    status      Status[]
+
+    @@unique([email])
+    @@unique([name])
 }
 
 model User {
     id               String             @id @default(uuid()) @db.Uuid
-    email            String             @unique(map: "user_email") @db.VarChar(30)
-    name             String             @unique(map: "user_name") @db.VarChar(30)
-    password         String             @db.VarChar(100)
-    headImage        String             @db.VarChar(100)
+    email            String             @db.VarChar(255)
+    name             String             @db.VarChar(255)
+    password         String             @db.VarChar(255)
+    headImage        String             @db.VarChar(255)
     active           Boolean            @default(true)
-    token            String?            @db.VarChar(100)
+    token            String?            @db.VarChar(255)
     createdAt        DateTime           @default(now())
     updatedAt        DateTime?          @updatedAt
-    accessToken      String?            @db.VarChar(100)
+    accessToken      String?            @db.VarChar(255)
     agentId          String?            @db.Uuid
-    gameSessionId    String?            @db.Uuid
     history          ActionHistory[]    @relation("UserActionHistory")
     balance          Balance[]
     betDetailHistory BetDetailHistory[]
     paymentHistory   PaymentHistory[]
     playerSession    PlayerSession[]
-    status           Status[]
     withdrawal       Withdrawal[]
     deposit          Deposit[]
-    createdBy        Agent?             @relation(fields: [agentId], references: [id])
-    gameSession      GameSession?       @relation(fields: [gameSessionId], references: [id])
+    agent            Agent?             @relation(fields: [agentId], references: [id])
+
+    @@unique([name])
+    @@unique([email])
 }
 
 model ActionHistory {
     id           String   @id @default(uuid()) @db.Uuid
-    type         Int
     newValueJson Json?
-    ip           String   @db.VarChar(20)
+    ip           String   @db.VarChar(255)
     createdAt    DateTime @default(now())
     userId       String?  @db.Uuid
     agentId      String?  @db.Uuid
@@ -84,18 +89,6 @@ model Balance {
     updatedAt DateTime? @updatedAt
     ownerId   String    @db.Uuid
     owner     User      @relation(fields: [ownerId], references: [id])
-}
-
-model GameList {
-    id               Int                @id
-    eGameName        String             @db.VarChar(100)
-    cGameName        String             @db.VarChar(30)
-    type             Int
-    json             Json?
-    createdAt        DateTime           @default(now())
-    updatedAt        DateTime?          @updatedAt
-    betDetailHistory BetDetailHistory[]
-    gameSession      GameSession[]
 }
 
 model PaymentHistory {
@@ -119,25 +112,24 @@ model BetDetailHistory {
     createdAt   DateTime @default(now())
     ownerId     String   @db.Uuid
     gameId      Int
-    gameList    GameList @relation(fields: [gameId], references: [id])
     owner       User     @relation(fields: [ownerId], references: [id])
+    game        GameList @relation(fields: [gameId], references: [id])
 }
 
 model GameSession {
-    id            String          @id @unique(map: "game_session_id") @default(uuid()) @db.Uuid
+    id            String          @id @default(uuid()) @db.Uuid
     gameId        Int
     createdAt     DateTime        @default(now())
     playerSession PlayerSession[]
-    user          User[]
-    gameData      GameList        @relation(fields: [gameId], references: [id])
+    game          GameList        @relation(fields: [gameId], references: [id])
 }
 
 model PlayerSession {
-    id            String      @id @unique(map: "player_session_id") @default(uuid()) @db.Uuid
+    id            String      @id @default(uuid()) @db.Uuid
     gameSessionId String      @db.Uuid
     userId        String      @db.Uuid
     betAmount     Int
-    betLines      Json?
+    betLines      Int
     betResult     Int
     createdAt     DateTime    @default(now())
     gameSession   GameSession @relation(fields: [gameSessionId], references: [id])
@@ -145,7 +137,7 @@ model PlayerSession {
 }
 
 model Quota {
-    id         String    @id @unique(map: "quota_id") @default(uuid()) @db.Uuid
+    id         String    @id @default(uuid()) @db.Uuid
     balance    Int
     createdAt  DateTime  @default(now())
     updatedAt  DateTime? @updatedAt
@@ -154,34 +146,53 @@ model Quota {
 }
 
 model Status {
-    id           String       @id @unique(map: "status_id") @default(uuid()) @db.Uuid
-    approval     String       @default("Pending")
+    id           String       @id @default(uuid()) @db.Uuid
+    approval     String?      @db.VarChar(255)
     createdAt    DateTime     @default(now())
     updatedAt    DateTime?    @updatedAt
-    approvedById String       @db.Uuid
-    approvedBy   User         @relation(fields: [approvedById], references: [id])
+    approvedById String?      @db.Uuid
+    approvedBy   Agent?       @relation(fields: [approvedById], references: [id])
     withdrawal   Withdrawal[]
     deposit      Deposit[]
 }
 
 model Withdrawal {
-    id        String    @id @unique(map: "withdrawal_id") @default(uuid()) @db.Uuid
-    amount    String    @default("Pending")
-    createdAt DateTime  @default(now())
-    updatedAt DateTime? @updatedAt
-    statusId  String    @db.Uuid
-    Status    Status    @relation(fields: [statusId], references: [id])
-    ownerId   String    @db.Uuid
-    user      User      @relation(fields: [ownerId], references: [id])
-}
-
-model Deposit {
-    id        String    @id @unique(map: "deposit_id") @default(uuid()) @db.Uuid
+    id        String    @id @default(uuid()) @db.Uuid
     amount    Int
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
     statusId  String    @db.Uuid
-    Status    Status    @relation(fields: [statusId], references: [id])
+    status    Status    @relation(fields: [statusId], references: [id])
     ownerId   String    @db.Uuid
-    user      User      @relation(fields: [ownerId], references: [id])
+    owner     User      @relation(fields: [ownerId], references: [id])
+}
+
+model Deposit {
+    id        String    @id @default(uuid()) @db.Uuid
+    amount    Int
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    statusId  String    @db.Uuid
+    status    Status    @relation(fields: [statusId], references: [id])
+    ownerId   String    @db.Uuid
+    owner     User      @relation(fields: [ownerId], references: [id])
+
+    @@unique([id])
+}
+
+model alembic_version {
+    version_num String @id @db.VarChar(255)
+
+    @@unique([version_num])
+}
+
+model GameList {
+    id               Int                @id
+    eGameName        String             @db.VarChar(255)
+    cGameName        String             @db.VarChar(255)
+    type             Int?
+    json             Json?
+    createdAt        DateTime?          @default(now())
+    gameSession      GameSession[]
+    betDetailHistory BetDetailHistory[]
 }
