@@ -50,12 +50,12 @@ model Agent {
 
 model User {
     id               String             @id @default(uuid()) @db.Uuid
-    email            String             @db.VarChar(255)
+    email            String?            @db.VarChar(255)
     username         String             @db.VarChar(255)
     firstName        String?            @db.VarChar(255)
     lastName         String?            @db.VarChar(255)
     phoneNumber      String?            @db.VarChar(255)
-    password         String             @db.VarChar(255)
+    password         String?            @db.VarChar(255)
     headImage        String             @default("1") @db.VarChar(255)
     active           Boolean            @default(true)
     token            String?            @db.VarChar(255)
@@ -72,7 +72,6 @@ model User {
     deposit          Deposit[]
     agent            Agent?             @relation(fields: [agentId], references: [id])
 
-    @@unique([email])
     @@unique([username])
 }
 
@@ -80,6 +79,7 @@ model ActionHistory {
     id           String   @id @default(uuid()) @db.Uuid
     newValueJson Json?
     ip           String   @db.VarChar(255)
+    path         String?  @db.VarChar(255)
     createdAt    DateTime @default(now())
     userId       String?  @db.Uuid
     agentId      String?  @db.Uuid
@@ -96,6 +96,8 @@ model Balance {
     updatedAt DateTime? @updatedAt
     ownerId   String    @db.Uuid
     owner     User      @relation(fields: [ownerId], references: [id])
+
+    @@unique([ownerId])
 }
 
 model PaymentHistory {

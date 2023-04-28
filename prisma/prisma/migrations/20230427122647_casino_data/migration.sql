@@ -1,0 +1,13 @@
+-- AlterTable
+ALTER TABLE "Admin" ALTER COLUMN "firstName" DROP NOT NULL,
+ALTER COLUMN "lastName" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Agent" ALTER COLUMN "firstName" DROP NOT NULL,
+ALTER COLUMN "lastName" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "phoneNumber" VARCHAR(255),
+ALTER COLUMN "firstName" DROP NOT NULL,
+ALTER COLUMN "lastName" DROP NOT NULL,
+ALTER COLUMN "headImage" SET DEFAULT '1';

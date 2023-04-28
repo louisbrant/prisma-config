@@ -18,7 +18,9 @@ export type Admin = {
   id: string
   email: string
   password: string
-  name: string
+  username: string
+  firstName: string | null
+  lastName: string | null
   token: string | null
   createdAt: Date
   updatedAt: Date | null
@@ -33,7 +35,9 @@ export type Agent = {
   id: string
   email: string
   password: string
-  name: string
+  username: string | null
+  firstName: string | null
+  lastName: string | null
   active: boolean
   createdAt: Date
   updatedAt: Date | null
@@ -47,9 +51,12 @@ export type Agent = {
  */
 export type User = {
   id: string
-  email: string
-  name: string
-  password: string
+  email: string | null
+  username: string
+  firstName: string | null
+  lastName: string | null
+  phoneNumber: string | null
+  password: string | null
   headImage: string
   active: boolean
   token: string | null
@@ -1422,7 +1429,9 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
-    name: string | null
+    username: string | null
+    firstName: string | null
+    lastName: string | null
     token: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1433,7 +1442,9 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
-    name: string | null
+    username: string | null
+    firstName: string | null
+    lastName: string | null
     token: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1444,7 +1455,9 @@ export namespace Prisma {
     id: number
     email: number
     password: number
-    name: number
+    username: number
+    firstName: number
+    lastName: number
     token: number
     createdAt: number
     updatedAt: number
@@ -1457,7 +1470,9 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
     token?: true
     createdAt?: true
     updatedAt?: true
@@ -1468,7 +1483,9 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
     token?: true
     createdAt?: true
     updatedAt?: true
@@ -1479,7 +1496,9 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
     token?: true
     createdAt?: true
     updatedAt?: true
@@ -1564,7 +1583,9 @@ export namespace Prisma {
     id: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName: string | null
+    lastName: string | null
     token: string | null
     createdAt: Date
     updatedAt: Date | null
@@ -1592,7 +1613,9 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
-    name?: boolean
+    username?: boolean
+    firstName?: boolean
+    lastName?: boolean
     token?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2429,7 +2452,9 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
-    name: string | null
+    username: string | null
+    firstName: string | null
+    lastName: string | null
     active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2441,7 +2466,9 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
-    name: string | null
+    username: string | null
+    firstName: string | null
+    lastName: string | null
     active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2453,7 +2480,9 @@ export namespace Prisma {
     id: number
     email: number
     password: number
-    name: number
+    username: number
+    firstName: number
+    lastName: number
     active: number
     createdAt: number
     updatedAt: number
@@ -2467,7 +2496,9 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
     active?: true
     createdAt?: true
     updatedAt?: true
@@ -2479,7 +2510,9 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
     active?: true
     createdAt?: true
     updatedAt?: true
@@ -2491,7 +2524,9 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
     active?: true
     createdAt?: true
     updatedAt?: true
@@ -2577,7 +2612,9 @@ export namespace Prisma {
     id: string
     email: string
     password: string
-    name: string
+    username: string | null
+    firstName: string | null
+    lastName: string | null
     active: boolean
     createdAt: Date
     updatedAt: Date | null
@@ -2606,7 +2643,9 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
-    name?: boolean
+    username?: boolean
+    firstName?: boolean
+    lastName?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3503,7 +3542,10 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     email: string | null
-    name: string | null
+    username: string | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
     password: string | null
     headImage: string | null
     active: boolean | null
@@ -3517,7 +3559,10 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
-    name: string | null
+    username: string | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
     password: string | null
     headImage: string | null
     active: boolean | null
@@ -3531,7 +3576,10 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     email: number
-    name: number
+    username: number
+    firstName: number
+    lastName: number
+    phoneNumber: number
     password: number
     headImage: number
     active: number
@@ -3547,7 +3595,10 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
     password?: true
     headImage?: true
     active?: true
@@ -3561,7 +3612,10 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
     password?: true
     headImage?: true
     active?: true
@@ -3575,7 +3629,10 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
-    name?: true
+    username?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
     password?: true
     headImage?: true
     active?: true
@@ -3662,9 +3719,12 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    email: string
-    name: string
-    password: string
+    email: string | null
+    username: string
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    password: string | null
     headImage: string
     active: boolean
     token: string | null
@@ -3694,7 +3754,10 @@ export namespace Prisma {
   export type UserSelect = {
     id?: boolean
     email?: boolean
-    name?: boolean
+    username?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
     password?: boolean
     headImage?: boolean
     active?: boolean
@@ -16375,7 +16438,9 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
-    name: 'name',
+    username: 'username',
+    firstName: 'firstName',
+    lastName: 'lastName',
     token: 'token',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -16389,7 +16454,9 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
-    name: 'name',
+    username: 'username',
+    firstName: 'firstName',
+    lastName: 'lastName',
     active: 'active',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -16560,7 +16627,10 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
-    name: 'name',
+    username: 'username',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    phoneNumber: 'phoneNumber',
     password: 'password',
     headImage: 'headImage',
     active: 'active',
@@ -16598,7 +16668,9 @@ export namespace Prisma {
     id?: UuidFilter | string
     email?: StringFilter | string
     password?: StringFilter | string
-    name?: StringFilter | string
+    username?: StringFilter | string
+    firstName?: StringNullableFilter | string | null
+    lastName?: StringNullableFilter | string | null
     token?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
@@ -16611,7 +16683,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16623,14 +16697,16 @@ export namespace Prisma {
   export type AdminWhereUniqueInput = {
     id?: string
     email?: string
-    name?: string
+    username?: string
   }
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16647,7 +16723,9 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter | string
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
-    name?: StringWithAggregatesFilter | string
+    username?: StringWithAggregatesFilter | string
+    firstName?: StringNullableWithAggregatesFilter | string | null
+    lastName?: StringNullableWithAggregatesFilter | string | null
     token?: StringNullableWithAggregatesFilter | string | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
@@ -16661,7 +16739,9 @@ export namespace Prisma {
     id?: UuidFilter | string
     email?: StringFilter | string
     password?: StringFilter | string
-    name?: StringFilter | string
+    username?: StringNullableFilter | string | null
+    firstName?: StringNullableFilter | string | null
+    lastName?: StringNullableFilter | string | null
     active?: BoolFilter | boolean
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
@@ -16678,7 +16758,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16694,14 +16776,16 @@ export namespace Prisma {
   export type AgentWhereUniqueInput = {
     id?: string
     email?: string
-    name?: string
+    username?: string
   }
 
   export type AgentOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16719,7 +16803,9 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter | string
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
-    name?: StringWithAggregatesFilter | string
+    username?: StringNullableWithAggregatesFilter | string | null
+    firstName?: StringNullableWithAggregatesFilter | string | null
+    lastName?: StringNullableWithAggregatesFilter | string | null
     active?: BoolWithAggregatesFilter | boolean
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
@@ -16732,9 +16818,12 @@ export namespace Prisma {
     OR?: Enumerable<UserWhereInput>
     NOT?: Enumerable<UserWhereInput>
     id?: UuidFilter | string
-    email?: StringFilter | string
-    name?: StringFilter | string
-    password?: StringFilter | string
+    email?: StringNullableFilter | string | null
+    username?: StringFilter | string
+    firstName?: StringNullableFilter | string | null
+    lastName?: StringNullableFilter | string | null
+    phoneNumber?: StringNullableFilter | string | null
+    password?: StringNullableFilter | string | null
     headImage?: StringFilter | string
     active?: BoolFilter | boolean
     token?: StringNullableFilter | string | null
@@ -16755,7 +16844,10 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
     password?: SortOrder
     headImage?: SortOrder
     active?: SortOrder
@@ -16776,14 +16868,16 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = {
     id?: string
-    email?: string
-    name?: string
+    username?: string
   }
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
     password?: SortOrder
     headImage?: SortOrder
     active?: SortOrder
@@ -16802,9 +16896,12 @@ export namespace Prisma {
     OR?: Enumerable<UserScalarWhereWithAggregatesInput>
     NOT?: Enumerable<UserScalarWhereWithAggregatesInput>
     id?: UuidWithAggregatesFilter | string
-    email?: StringWithAggregatesFilter | string
-    name?: StringWithAggregatesFilter | string
-    password?: StringWithAggregatesFilter | string
+    email?: StringNullableWithAggregatesFilter | string | null
+    username?: StringWithAggregatesFilter | string
+    firstName?: StringNullableWithAggregatesFilter | string | null
+    lastName?: StringNullableWithAggregatesFilter | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter | string | null
+    password?: StringNullableWithAggregatesFilter | string | null
     headImage?: StringWithAggregatesFilter | string
     active?: BoolWithAggregatesFilter | boolean
     token?: StringNullableWithAggregatesFilter | string | null
@@ -16896,6 +16993,7 @@ export namespace Prisma {
 
   export type BalanceWhereUniqueInput = {
     id?: string
+    ownerId?: string
   }
 
   export type BalanceOrderByWithAggregationInput = {
@@ -17446,7 +17544,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -17459,7 +17559,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -17472,7 +17574,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17485,7 +17589,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17498,7 +17604,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -17509,7 +17617,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17520,7 +17630,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17531,7 +17643,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -17547,7 +17661,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -17563,7 +17679,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17579,7 +17697,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17595,7 +17715,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -17607,7 +17729,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17618,7 +17742,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17628,10 +17754,13 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -17649,10 +17778,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -17670,9 +17802,12 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17691,9 +17826,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17712,10 +17850,13 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -17726,9 +17867,12 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17739,9 +17883,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18564,7 +18711,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18575,7 +18724,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18586,7 +18737,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18728,7 +18881,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18740,7 +18895,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18752,7 +18909,9 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18851,7 +19010,10 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
     password?: SortOrder
     headImage?: SortOrder
     active?: SortOrder
@@ -18865,7 +19027,10 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
     password?: SortOrder
     headImage?: SortOrder
     active?: SortOrder
@@ -18879,7 +19044,10 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrder
+    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
     password?: SortOrder
     headImage?: SortOrder
     active?: SortOrder
@@ -20777,7 +20945,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -20792,7 +20962,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -20865,7 +21037,9 @@ export namespace Prisma {
     id?: UuidFilter | string
     email?: StringFilter | string
     password?: StringFilter | string
-    name?: StringFilter | string
+    username?: StringNullableFilter | string | null
+    firstName?: StringNullableFilter | string | null
+    lastName?: StringNullableFilter | string | null
     active?: BoolFilter | boolean
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
@@ -20905,7 +21079,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -20917,7 +21093,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -20932,10 +21110,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutAgentInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -20952,10 +21133,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAgentInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21057,7 +21241,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21069,7 +21255,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21098,9 +21286,12 @@ export namespace Prisma {
     OR?: Enumerable<UserScalarWhereInput>
     NOT?: Enumerable<UserScalarWhereInput>
     id?: UuidFilter | string
-    email?: StringFilter | string
-    name?: StringFilter | string
-    password?: StringFilter | string
+    email?: StringNullableFilter | string | null
+    username?: StringFilter | string
+    firstName?: StringNullableFilter | string | null
+    lastName?: StringNullableFilter | string | null
+    phoneNumber?: StringNullableFilter | string | null
+    password?: StringNullableFilter | string | null
     headImage?: StringFilter | string
     active?: BoolFilter | boolean
     token?: StringNullableFilter | string | null
@@ -21360,7 +21551,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -21375,7 +21568,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -21588,7 +21783,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21603,7 +21800,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21618,7 +21817,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -21630,7 +21831,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
     token?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -21647,7 +21850,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -21662,7 +21867,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -21680,10 +21887,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutHistoryInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21700,10 +21910,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutHistoryInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21732,7 +21945,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21744,7 +21959,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     token?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21761,7 +21978,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21776,7 +21995,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21794,9 +22015,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21814,9 +22038,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21834,10 +22061,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutBalanceInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21854,10 +22084,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutBalanceInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21884,9 +22117,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutBalanceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21904,9 +22140,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutBalanceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21924,10 +22163,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutPaymentHistoryInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21944,10 +22186,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutPaymentHistoryInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -21974,9 +22219,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutPaymentHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21994,9 +22242,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutPaymentHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22014,10 +22265,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutBetDetailHistoryInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22034,10 +22288,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutBetDetailHistoryInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22089,9 +22346,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutBetDetailHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22109,9 +22369,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutBetDetailHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22265,10 +22528,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutPlayerSessionInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22285,10 +22551,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutPlayerSessionInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22332,9 +22601,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutPlayerSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22352,9 +22624,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutPlayerSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22374,7 +22649,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -22389,7 +22666,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -22414,7 +22693,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22429,7 +22710,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22444,7 +22727,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -22459,7 +22744,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -22536,7 +22823,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22551,7 +22840,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22619,10 +22910,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutWithdrawalInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22639,10 +22933,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutWithdrawalInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22692,9 +22989,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutWithdrawalInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22712,9 +23012,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutWithdrawalInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22755,10 +23058,13 @@ export namespace Prisma {
 
   export type UserCreateWithoutDepositInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22775,10 +23081,13 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutDepositInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -22828,9 +23137,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutDepositInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22848,9 +23160,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutDepositInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22972,7 +23287,9 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    name: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
@@ -23010,7 +23327,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23025,7 +23344,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23040,7 +23361,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23058,10 +23381,13 @@ export namespace Prisma {
 
   export type UserCreateManyAgentInput = {
     id?: string
-    email: string
-    name: string
-    password: string
-    headImage: string
+    email?: string | null
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    headImage?: string
     active?: boolean
     token?: string | null
     createdAt?: Date | string
@@ -23103,9 +23429,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAgentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23123,9 +23452,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAgentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23143,9 +23475,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     headImage?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
