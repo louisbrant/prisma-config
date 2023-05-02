@@ -73,6 +73,8 @@ model User {
     agent            Agent?             @relation(fields: [agentId], references: [id])
 
     @@unique([username])
+    @@unique([phoneNumber])
+    @@unique([accessToken])
 }
 
 model ActionHistory {
